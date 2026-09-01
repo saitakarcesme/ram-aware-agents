@@ -71,6 +71,10 @@ These are behavioral instructions, not an operating-system resource limiter. An 
 - Stop optional work and reduce batch size when memory pressure or swap rises.
 - Clean up background processes created for the task.
 
+## Benchmark
+
+The first controlled comparison is published under [`benchmarks/codex-8gb-2026-09-01/`](benchmarks/codex-8gb-2026-09-01/README.md). It uses two clean projects and the same four-prompt Codex workload. In this single run, the 8 GB profile reduced average Codex-tree RSS by 30.7% and P95 RSS by 18.0%, while taking 13.3% longer. It did not reduce the absolute peak Codex-tree RSS, which was 3.2% higher. See the report for the charts, raw one-second samples, method, and limitations.
+
 ## Sources
 
 - [OpenAI: custom instructions with AGENTS.md](https://developers.openai.com/codex/guides/agents-md)

@@ -1,0 +1,111 @@
+{
+  "overall": {
+    "with-profile": {
+      "elapsed_seconds": 1038.7481230419999,
+      "tree_rss_average_gib": 0.22088794844909482,
+      "tree_rss_p95_gib": 0.6140289306640623,
+      "tree_rss_peak_gib": 1.570587158203125,
+      "system_used_average_gib": 5.529024715677377,
+      "system_used_peak_gib": 6.0150909423828125,
+      "system_free_percent_min": 52.0,
+      "process_count_average": 2.4350051177072674,
+      "process_count_peak": 13.0,
+      "failed_commands": 9,
+      "total_commands": 40
+    },
+    "without-profile": {
+      "elapsed_seconds": 916.9203850000004,
+      "tree_rss_average_gib": 0.31879173685945655,
+      "tree_rss_p95_gib": 0.7489776611328125,
+      "tree_rss_peak_gib": 1.521697998046875,
+      "system_used_average_gib": 5.5864310209269865,
+      "system_used_peak_gib": 6.1062774658203125,
+      "system_free_percent_min": 49.0,
+      "process_count_average": 2.9837587006960558,
+      "process_count_peak": 13.0,
+      "failed_commands": 11,
+      "total_commands": 41
+    }
+  },
+  "profile_minus_no_profile": {
+    "elapsed_percent": 13.286621176166724,
+    "tree_rss_average_percent": -30.710892752381437,
+    "tree_rss_p95_percent": -18.017724355709507,
+    "tree_rss_peak_percent": 3.2128030804404073,
+    "system_used_peak_percent": -1.493324270767482
+  },
+  "prompts": [
+    {
+      "prompt": 1,
+      "with_elapsed_seconds": 459.3615790829999,
+      "without_elapsed_seconds": 320.4351999999999,
+      "profile_time_delta_seconds": 138.92637908300003,
+      "profile_time_delta_percent": 43.355529942715435,
+      "with_peak_tree_rss_gib": 1.498199462890625,
+      "without_peak_tree_rss_gib": 1.3050537109375,
+      "profile_peak_rss_delta_percent": 14.799831634084736,
+      "with_average_tree_rss_gib": 0.23453701866997612,
+      "without_average_tree_rss_gib": 0.2066112024047446,
+      "with_p95_tree_rss_gib": 0.70660400390625,
+      "without_p95_tree_rss_gib": 0.342987060546875,
+      "with_peak_processes": 13,
+      "without_peak_processes": 7,
+      "with_peak_chromium_processes": 6,
+      "without_peak_chromium_processes": 0
+    },
+    {
+      "prompt": 2,
+      "with_elapsed_seconds": 119.14942733400039,
+      "without_elapsed_seconds": 137.1880860000001,
+      "profile_time_delta_seconds": -18.03865866599972,
+      "profile_time_delta_percent": -13.148852201349104,
+      "with_peak_tree_rss_gib": 0.67523193359375,
+      "without_peak_tree_rss_gib": 0.6231842041015625,
+      "profile_peak_rss_delta_percent": 8.351901275678841,
+      "with_average_tree_rss_gib": 0.23823656354631698,
+      "without_average_tree_rss_gib": 0.21599191518930289,
+      "with_p95_tree_rss_gib": 0.5401763916015625,
+      "without_p95_tree_rss_gib": 0.380096435546875,
+      "with_peak_processes": 7,
+      "without_peak_processes": 7,
+      "with_peak_chromium_processes": 0,
+      "without_peak_chromium_processes": 0
+    },
+    {
+      "prompt": 3,
+      "with_elapsed_seconds": 317.9741751249994,
+      "without_elapsed_seconds": 307.05101487499996,
+      "profile_time_delta_seconds": 10.923160249999455,
+      "profile_time_delta_percent": 3.5574415067301635,
+      "with_peak_tree_rss_gib": 1.570587158203125,
+      "without_peak_tree_rss_gib": 1.521697998046875,
+      "profile_peak_rss_delta_percent": 3.2128030804404073,
+      "with_average_tree_rss_gib": 0.17765879551303826,
+      "without_average_tree_rss_gib": 0.510922008090549,
+      "with_p95_tree_rss_gib": 0.2656707763671875,
+      "without_p95_tree_rss_gib": 0.9661102294921875,
+      "with_peak_processes": 13,
+      "without_peak_processes": 13,
+      "with_peak_chromium_processes": 7,
+      "without_peak_chromium_processes": 7
+    },
+    {
+      "prompt": 4,
+      "with_elapsed_seconds": 142.26294150000012,
+      "without_elapsed_seconds": 152.24608412500038,
+      "profile_time_delta_seconds": -9.983142625000255,
+      "profile_time_delta_percent": -6.557240984144908,
+      "with_peak_tree_rss_gib": 1.2908935546875,
+      "without_peak_tree_rss_gib": 1.3903045654296875,
+      "profile_peak_rss_delta_percent": -7.150304560171216,
+      "with_average_tree_rss_gib": 0.2588437208488806,
+      "without_average_tree_rss_gib": 0.2614266989114401,
+      "with_p95_tree_rss_gib": 0.6853790283203125,
+      "without_p95_tree_rss_gib": 0.8236541748046875,
+      "with_peak_processes": 13,
+      "without_peak_processes": 13,
+      "with_peak_chromium_processes": 7,
+      "without_peak_chromium_processes": 7
+    }
+  ]
+}

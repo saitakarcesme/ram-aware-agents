@@ -1,0 +1,37 @@
+{
+  "name": "telemetry-lab-benchmark",
+  "private": true,
+  "version": "1.0.0",
+  "packageManager": "pnpm@11.19.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @telemetry/dashboard dev",
+    "build": "pnpm --filter @telemetry/dashboard build",
+    "typecheck": "tsc -b",
+    "test": "vitest run",
+    "test:unit": "vitest run tests/unit",
+    "test:integration": "vitest run tests/integration",
+    "test:e2e": "playwright test",
+    "generate": "tsx packages/generator/src/cli.ts",
+    "analyze": "tsx packages/analytics/src/cli.ts",
+    "bench": "tsx packages/analytics/src/benchmark.ts"
+  },
+  "dependencies": {
+    "fast-csv": "5.0.7",
+    "next": "16.3.4",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "zod": "4.5.4"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.62.1",
+    "@types/node": "26.4.0",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.5",
+    "tsx": "4.23.13",
+    "typescript": "7.0.2",
+    "vitest": "4.1.11"
+  }
+}

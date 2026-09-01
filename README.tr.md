@@ -31,3 +31,7 @@ Bu dosyalar davranış talimatıdır; macOS seviyesinde kesin RAM limiti uygulam
 ## Temel hedef
 
 Zamandan tasarruf ikinci plandadır. Bilgisayarın arayüzü, tarayıcı, editör ve diğer uygulamalar akıcı kalmalıdır. Bellek baskısı veya swap yükselirse ajan ek işleri durdurur, paralelliği kapatır ve daha küçük adımlarla devam eder.
+
+## Benchmark
+
+İlk kontrollü karşılaştırma [`benchmarks/codex-8gb-2026-09-01/`](benchmarks/codex-8gb-2026-09-01/README.md) altında yayımlanmıştır. Aynı dört prompt iki temiz projede çalıştırıldı. Bu tek koşuda 8 GB profili ortalama Codex işlem ağacı RSS kullanımını %30,7, P95 RSS kullanımını %18,0 azalttı; toplam süre %13,3 uzadı. Mutlak tepe RSS ise azalmadı ve %3,2 daha yüksek çıktı. Grafikler, saniyelik ham örnekler, yöntem ve sınırlamalar raporda yer alır.

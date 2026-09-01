@@ -1,0 +1,10 @@
+{
+  "with-profile": {
+    "failed": 9,
+    "total": 40
+  },
+  "without-profile": {
+    "failed": 11,
+    "total": 41
+  }
+}

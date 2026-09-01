@@ -1,0 +1,20 @@
+{
+  "elapsed_seconds": 137.1880860000001,
+  "exit_code": 0,
+  "samples": 130,
+  "tree_rss_average_bytes": 231919552.9846154,
+  "tree_rss_p95_bytes": 408125440.0,
+  "tree_rss_peak_bytes": 669138944.0,
+  "system_used_average_bytes": 6074144673.476923,
+  "system_used_peak_bytes": 6469599232.0,
+  "swap_start_bytes": 2230446981.0,
+  "swap_end_bytes": 1627652096.0,
+  "swap_peak_bytes": 2230446981.0,
+  "process_count_peak": 7,
+  "chromium_process_count_peak": 0,
+  "condition": "without-profile",
+  "prompt_index": 2,
+  "timed_out": false,
+  "model": "gpt-5.6-terra",
+  "reasoning_effort": "medium"
+}
