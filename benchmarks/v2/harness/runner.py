@@ -315,9 +315,10 @@ def profile_identity(agent: str) -> dict[str, str]:
     return {"path": str(path.relative_to(ROOT)), "sha256": hashlib.sha256(path.read_bytes()).hexdigest(), "commit": commit}
 
 
-def verify(project: Path, commands: list[str], output: Path) -> dict[str, Any]:
+def verify(project: Path, workload: dict[str, Any], output: Path) -> dict[str, Any]:
     results = []
-    for command in commands:
+    forbidden = [re.compile(pattern, re.IGNORECASE) for pattern in workload.get("forbid_verify_patterns", [])]
+    for command in workload["verify"]:
         started = time.monotonic()
         completed = subprocess.run(
             command, cwd=project, shell=True, text=True, stdout=subprocess.PIPE,
@@ -325,8 +326,20 @@ def verify(project: Path, commands: list[str], output: Path) -> dict[str, Any]:
         )
         log_name = f"verify-{len(results) + 1:02d}.log"
         (output / log_name).write_text(completed.stdout)
-        results.append({"command": command, "exit_code": completed.returncode, "elapsed_seconds": time.monotonic() - started})
-    return {"passed": all(item["exit_code"] == 0 for item in results), "commands": results}
+        matches = [pattern.pattern for pattern in forbidden if pattern.search(completed.stdout)]
+        results.append({
+            "command": command,
+            "exit_code": completed.returncode,
+            "elapsed_seconds": time.monotonic() - started,
+            "forbidden_output_matches": matches,
+        })
+    required = [
+        {"path": path, "exists": (project / path).exists()}
+        for path in workload.get("required_files", ["BENCHMARK_RESULTS.md"])
+    ]
+    passed = all(item["exit_code"] == 0 and not item["forbidden_output_matches"] for item in results)
+    passed = passed and all(item["exists"] for item in required)
+    return {"passed": passed, "commands": results, "required_files": required}
 
 
 def run_case(args: argparse.Namespace, workload: dict[str, Any], repetition: int, condition: str) -> dict[str, Any]:
@@ -365,7 +378,7 @@ def run_case(args: argparse.Namespace, workload: dict[str, Any], repetition: int
             if summary["exit_code"] != 0 or summary["timed_out"] or session_id is None:
                 break
             time.sleep(int(PROTOCOL["cooldown_seconds"]))
-        verification = verify(project, workload["verify"], output) if len(prompt_summaries) == len(workload["prompts"]) else {"passed": False, "commands": []}
+        verification = verify(project, workload, output) if len(prompt_summaries) == len(workload["prompts"]) else {"passed": False, "commands": [], "required_files": []}
         leaks = current_leaks(project)
         stop_leaks(leaks)
         result = {
