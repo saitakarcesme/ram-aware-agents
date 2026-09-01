@@ -1,0 +1,16 @@
+{
+  "id": "docker-services",
+  "title": "Docker multi-service local system",
+  "capability": ["docker"],
+  "requires_docker_daemon": true,
+  "profile_split": "tuning",
+  "verify": ["docker compose config --quiet", "docker compose run --rm tests"],
+  "spec": "Build a Docker Compose local system with an API, queue-backed worker, PostgreSQL-compatible database, deterministic seed job, health checks, resource limits, and integration tests. Services must use pinned images, bounded worker counts, and named cleanup commands. No external hosted service is allowed.",
+  "prompts": [
+    "Create the multi-service architecture, Compose file, health checks, resource limits, and unit-test foundations.",
+    "Implement deterministic seeding of 250,000 jobs and bounded batch processing with idempotency.",
+    "Add API pagination, worker retry/dead-letter behavior, and integration tests across all services.",
+    "Add migration rollback, interrupted-job recovery, and observability endpoints with regression tests.",
+    "Run Compose validation, integration tests, a measured seed-and-drain run, and clean shutdown. Fix failures and write BENCHMARK_RESULTS.md."
+  ]
+}

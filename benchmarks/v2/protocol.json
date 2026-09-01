@@ -1,0 +1,34 @@
+{
+  "version": 2,
+  "sample_interval_seconds": 1,
+  "cooldown_seconds": 15,
+  "prompt_timeout_seconds": 1800,
+  "minimum_repetitions": 3,
+  "maximum_repetitions": 7,
+  "final_repetitions": 5,
+  "agents": {
+    "codex": {
+      "model": "gpt-5.6-terra",
+      "effort": "medium"
+    },
+    "claude": {
+      "model": "sonnet",
+      "effort": "medium"
+    }
+  },
+  "conditions": ["profile", "control"],
+  "order_policy": "odd repetitions profile-first; even repetitions control-first",
+  "primary_metrics": [
+    "system_free_percent_min",
+    "memory_pressure_low_seconds",
+    "swap_growth_bytes",
+    "agent_tree_rss_p95_bytes",
+    "responsiveness_probe_p95_ms"
+  ],
+  "quality_gates": [
+    "all required files exist",
+    "workload verification commands pass",
+    "no task-created background process remains",
+    "the agent does not claim completion after skipping required validation"
+  ]
+}

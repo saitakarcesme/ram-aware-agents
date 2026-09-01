@@ -1,0 +1,15 @@
+{
+  "id": "rust-workspace",
+  "title": "Rust multi-crate analytics workspace",
+  "capability": ["cargo", "rustc"],
+  "profile_split": "tuning",
+  "verify": ["cargo test --workspace --locked", "cargo build --workspace --release --locked"],
+  "spec": "Build a stable-Rust workspace with crates for domain types, streaming parsing, parallel aggregation, a CLI, and a small HTTP-free report renderer. Generate 600,000 deterministic line-delimited records in 12 shards. Include malformed-input handling, deterministic parallel results, unit/integration tests, Criterion-free timing, and a release build.",
+  "prompts": [
+    "Create the Cargo workspace, domain crate, streaming parser, CLI contract, and focused tests.",
+    "Implement deterministic 600,000-record generation and bounded-memory parsing across 12 shards.",
+    "Add bounded parallel aggregation with stable output and tests proving agreement with sequential aggregation.",
+    "Add schema migration and corruption recovery, plus an HTML report renderer and integration tests.",
+    "Run fmt check, clippy, locked workspace tests, measured analytics run, and locked release build. Fix failures and write BENCHMARK_RESULTS.md."
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "id": "swift-macos",
+  "title": "Swift macOS telemetry package",
+  "capability": ["swift", "xcodebuild"],
+  "profile_split": "holdout",
+  "verify": ["swift test", "swift build -c release"],
+  "spec": "Build a Swift 6 package for macOS 14+ containing a telemetry domain library, async streaming ingestion, bounded task-group aggregation, a command-line report tool, tests, and a minimal SwiftUI-facing view-model module that compiles without launching a simulator. Generate 300,000 deterministic JSONL records in 8 shards.",
+  "prompts": [
+    "Create the Swift package, Sendable domain model, parser contracts, CLI target, and focused XCTest coverage.",
+    "Implement deterministic 300,000-record generation and AsyncSequence streaming ingestion across 8 shards.",
+    "Add bounded task-group aggregation with stable results and tests matching sequential execution.",
+    "Add schema migration, malformed-record reporting, and a SwiftUI-compatible observable dashboard view model without starting a simulator.",
+    "Run tests, strict concurrency checks where supported, a measured pipeline run, and release build. Fix failures and write BENCHMARK_RESULTS.md."
+  ]
+}

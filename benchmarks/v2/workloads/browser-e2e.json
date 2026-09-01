@@ -1,0 +1,15 @@
+{
+  "id": "browser-e2e",
+  "title": "Browser-heavy offline application",
+  "capability": ["node", "pnpm"],
+  "profile_split": "tuning",
+  "verify": ["pnpm test", "pnpm build"],
+  "spec": "Build an offline-first React application with a local mock API, 40 deterministic UI scenarios, Vitest component tests, and Playwright Chromium tests covering desktop and mobile viewports. Generate 100,000 searchable records. Root scripts must include test, test:e2e, build, and typecheck. Browser tests must reuse one configured web server and clean it up.",
+  "prompts": [
+    "Create the application, typed local API contract, deterministic record generator, and component-test foundation.",
+    "Implement indexed search, filtering, pagination, optimistic edits, and accessibility-focused component tests over 100,000 records.",
+    "Add 40 Playwright scenarios across desktop and mobile projects while configuring one reusable web server.",
+    "Add offline recovery, corrupted-cache handling, and regression tests for rapid filtering and navigation.",
+    "Run typecheck, component tests, browser tests, and production build. Fix failures, verify no server remains, and write BENCHMARK_RESULTS.md."
+  ]
+}

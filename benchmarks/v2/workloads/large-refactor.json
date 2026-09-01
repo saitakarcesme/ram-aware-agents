@@ -1,0 +1,15 @@
+{
+  "id": "large-refactor",
+  "title": "Large generated repository refactor",
+  "capability": ["node", "pnpm"],
+  "profile_split": "holdout",
+  "verify": ["pnpm test", "pnpm typecheck"],
+  "spec": "Create a TypeScript repository generator that produces 2,000 small source modules across 80 packages with a dependency graph and tests. Then perform a cross-cutting API migration without broad dependency-directory scans. The repository must provide deterministic generation, typecheck, test, migration validation, and stale-symbol detection scripts.",
+  "prompts": [
+    "Create the deterministic repository generator, package graph manifest, shared API v1, and smoke tests. Generate all 2,000 modules.",
+    "Add graph-aware validation, targeted package tests, full typecheck, and intentional fixture failures proving the validators work.",
+    "Migrate the shared API from positional parameters to an options object across generated packages while preserving compatibility at the boundary.",
+    "Remove the compatibility layer, update tests and documentation, and prove no stale call sites remain using scoped searches.",
+    "Run deterministic regeneration checks, stale-symbol validation, tests, and typecheck. Fix failures and write BENCHMARK_RESULTS.md with command counts and timing."
+  ]
+}
