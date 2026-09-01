@@ -33,6 +33,27 @@ cp profiles/16gb/CLAUDE.md /path/to/your-project/CLAUDE.md
 
 Replace `16gb` with your memory tier. If your exact capacity is not listed, choose the next lower tier. Commit the selected file if the whole team should use it; otherwise put it in your agent's user-level instruction location.
 
+## Task-scoped skills
+
+The repository also includes two reusable skills under [`skills/`](skills/README.md):
+
+- [`codex-ram-profile`](skills/codex-ram-profile/SKILL.md) applies a temporary RAM budget to one Codex task across the entire project.
+- [`claude-ram-profile`](skills/claude-ram-profile/SKILL.md) applies the same task-scoped approach in Claude Code.
+
+Use `profiles/` when you want persistent project behavior. Use a skill when you want the selected budget only for the current task without changing the project's instruction files. Both skills detect Mac unified memory automatically or accept an explicit amount such as `16`.
+
+Codex project installation:
+
+```sh
+cp -R skills/codex-ram-profile /path/to/project/.agents/skills/
+```
+
+Claude Code project installation:
+
+```sh
+cp -R skills/claude-ram-profile /path/to/project/.claude/skills/
+```
+
 ## What these profiles control
 
 The profiles tell the coding agent to prefer machine responsiveness over wall-clock speed. They limit agent/subagent fan-out, parallel tool calls, browser tabs, background servers, watchers, broad filesystem scans, simultaneous builds, and oversized test runs. They also define a memory-pressure fallback.
@@ -56,6 +77,8 @@ These are behavioral instructions, not an operating-system resource limiter. An 
 - [OpenAI: model guidance and lean tool orchestration](https://developers.openai.com/api/docs/guides/latest-model)
 - [Anthropic: how Claude remembers your project](https://code.claude.com/docs/en/memory)
 - [Anthropic: prompting guidance for parallel tool calls and subagents](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices)
+- [OpenAI: build Codex skills](https://learn.chatgpt.com/docs/build-skills)
+- [Anthropic: extend Claude Code with skills](https://code.claude.com/docs/en/slash-commands)
 
 ## Contributing
 
