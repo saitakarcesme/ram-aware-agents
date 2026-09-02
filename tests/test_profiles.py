@@ -50,7 +50,10 @@ class ProfileTests(unittest.TestCase):
         self.assertIn("npm run test:node", workload["verify"])
         self.assertIn("npm run build", workload["verify"])
         self.assertNotIn("--runInBand", " ".join(workload["verify"]))
-        self.assertIn("package-lock.json", workload["required_files"])
+        self.assertIn("scripts/test-python.sh", workload["required_files"])
+        lockfile_choices = workload["required_any_files"][0]
+        self.assertIn("package-lock.json", lockfile_choices)
+        self.assertIn("node/package-lock.json", lockfile_choices)
 
 
 if __name__ == "__main__":

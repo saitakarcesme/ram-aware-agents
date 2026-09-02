@@ -23,6 +23,8 @@ The runner samples the complete agent process tree and macOS once per second. It
 
 The profile is a success only when resource improvements survive correctness gates. A run that skips required data sizes, fails verification, or leaks a task-created process is not counted as a memory win.
 
+The runner exits non-zero when any completed case fails its quality gate. An unavailable optional workload is recorded but does not fail an otherwise valid selected run.
+
 ## Repetition policy
 
 - Diagnostic stage: at least three profile/control pairs per available workload and agent.

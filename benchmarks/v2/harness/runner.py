@@ -337,9 +337,22 @@ def verify(project: Path, workload: dict[str, Any], output: Path) -> dict[str, A
         {"path": path, "exists": (project / path).exists()}
         for path in workload.get("required_files", ["BENCHMARK_RESULTS.md"])
     ]
+    required_any = [
+        {
+            "paths": paths,
+            "matched": [path for path in paths if (project / path).exists()],
+        }
+        for paths in workload.get("required_any_files", [])
+    ]
     passed = all(item["exit_code"] == 0 and not item["forbidden_output_matches"] for item in results)
     passed = passed and all(item["exists"] for item in required)
-    return {"passed": passed, "commands": results, "required_files": required}
+    passed = passed and all(item["matched"] for item in required_any)
+    return {
+        "passed": passed,
+        "commands": results,
+        "required_files": required,
+        "required_any_files": required_any,
+    }
 
 
 def run_case(args: argparse.Namespace, workload: dict[str, Any], repetition: int, condition: str) -> dict[str, Any]:
@@ -442,7 +455,12 @@ def main() -> int:
                 manifest.append(run_case(args, workload, repetition, condition))
                 time.sleep(int(PROTOCOL["cooldown_seconds"]))
     (args.results / f"manifest-{args.agent}.json").write_text(json.dumps(manifest, indent=2) + "\n")
-    return 0 if all(item.get("status") in {"complete", "unavailable"} for item in manifest) else 1
+    successful = all(
+        item.get("status") == "unavailable"
+        or (item.get("status") == "complete" and item.get("quality_passed") is True)
+        for item in manifest
+    )
+    return 0 if successful else 1
 
 
 if __name__ == "__main__":
