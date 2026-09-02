@@ -75,7 +75,11 @@ These are behavioral instructions, not an operating-system resource limiter. An 
 
 ## Benchmark
 
-The first controlled comparison is published under [`benchmarks/codex-8gb-2026-09-01/`](benchmarks/codex-8gb-2026-09-01/README.md). It uses two clean projects and the same four-prompt Codex workload. In this single run, the 8 GB profile reduced average Codex-tree RSS by 30.7% and P95 RSS by 18.0%, while taking 13.3% longer. It did not reduce the absolute peak Codex-tree RSS, which was 3.2% higher. See the report for the charts, raw one-second samples, method, and limitations.
+The current v2 evidence snapshot is published under [`benchmarks/v2/evidence/8gb-m1-2026-09-02/`](benchmarks/v2/evidence/8gb-m1-2026-09-02/README.md). It uses fresh projects, five-prompt workloads, alternating condition order, one-second sampling, and independent correctness gates.
+
+In two quality-valid browser-heavy React/Playwright pairs, the 8 GB profile reduced median P95 Codex-tree RSS by 57.0%, median peak RSS by 58.9%, and browser process peaks from 22–24 to 7. Minimum free system memory improved from 32–49% to 55–60%. Median active-time delta was +5.0%, with large run-to-run variance. This is a strong signal, not a final universal claim: the protocol requires at least three valid pairs, Claude is awaiting user reauthentication, and memory tiers above 8 GB have not been measured on physical hardware.
+
+The earlier four-prompt pilot remains under [`benchmarks/codex-8gb-2026-09-01/`](benchmarks/codex-8gb-2026-09-01/README.md) for historical comparison. Benchmark defects discovered during the v2 runs led directly to stricter dependency, package-manager, worker-limit, E2E, and quality-gate rules.
 
 ## Sources
 

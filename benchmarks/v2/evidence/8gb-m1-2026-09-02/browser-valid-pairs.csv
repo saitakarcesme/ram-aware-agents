@@ -1,0 +1,5 @@
+repetition,condition,p95_tree_rss_gib,peak_tree_rss_gib,system_peak_gib,min_free_percent,responsiveness_p95_ms,process_peak,browser_process_peak,active_seconds
+1,profile,1.0265,1.1662,5.8777,55,2.8894,15,7,1074.47
+1,control,2.9613,3.2563,6.7757,32,7.9930,30,24,1368.68
+3,profile,1.2175,1.3778,5.7233,60,3.0363,13,7,964.55
+3,control,2.3734,2.9741,6.0975,49,7.4256,26,22,733.56

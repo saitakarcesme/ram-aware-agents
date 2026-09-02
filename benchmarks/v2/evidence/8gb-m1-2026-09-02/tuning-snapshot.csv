@@ -1,0 +1,4 @@
+workload,valid_pairs,profile_version,time_delta_median_percent,average_rss_delta_median_percent,p95_rss_delta_median_percent,peak_rss_delta_median_percent,status
+browser-e2e,2,fa68f9f,5.0,-40.6,-57.0,-58.9,strong_signal_more_repetitions_required
+rust-workspace,2,5df673c,-3.1,-2.1,2.8,-28.7,promising_peak_reduction_more_repetitions_required
+python-data,1,5df673c,17.9,7.1,-2.9,-20.3,inconclusive_more_repetitions_required
