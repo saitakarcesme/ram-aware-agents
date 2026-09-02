@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import subprocess
 import unittest
 from pathlib import Path
@@ -29,6 +30,17 @@ class ProfileTests(unittest.TestCase):
             values = dict(line.split("=", 1) for line in output.splitlines())
             self.assertEqual(values["profile"], f"{tier}gb")
             self.assertEqual(int(values["max_internal_jobs"]), jobs)
+
+    def test_browser_workloads_have_independent_quality_gates(self) -> None:
+        for workload_name in ("browser-e2e", "typescript-next"):
+            path = ROOT / "benchmarks" / "v2" / "workloads" / f"{workload_name}.json"
+            workload = json.loads(path.read_text())
+            commands = workload["verify"]
+            self.assertIn("pnpm typecheck", commands)
+            self.assertIn("pnpm test", commands)
+            self.assertIn("pnpm test:e2e", commands)
+            self.assertIn("pnpm build", commands)
+            self.assertIn("playwright.config.ts", workload["required_files"])
 
 
 if __name__ == "__main__":

@@ -3,7 +3,9 @@
   "title": "TypeScript and Next.js telemetry monorepo",
   "capability": ["node", "pnpm"],
   "profile_split": "tuning",
-  "verify": ["pnpm test", "pnpm build"],
+  "verify": ["pnpm typecheck", "pnpm test", "pnpm test:e2e", "pnpm benchmark", "pnpm build"],
+  "forbid_verify_patterns": ["skipped", "no tests found"],
+  "required_files": ["BENCHMARK_RESULTS.md", "package.json", "playwright.config.ts"],
   "spec": "Build a pnpm TypeScript monorepo with a Next.js dashboard, a worker-thread analytics package, deterministic telemetry generation, Vitest integration tests, Playwright browser coverage, and a production build. The final dataset must contain 500,000 events in 16 NDJSON shards. Root scripts must include test, build, typecheck, generate, benchmark, and test:e2e. Do not use remote services.",
   "prompts": [
     "Create the monorepo architecture and core typed telemetry model. Add unit tests and run the smallest relevant checks.",
