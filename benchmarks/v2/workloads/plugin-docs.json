@@ -4,7 +4,7 @@
   "capability": ["python3", "node"],
   "profile_split": "tuning",
   "verify": ["test -x .venv/bin/python && test -x scripts/test-python.sh && scripts/test-python.sh", "npm run test:node", "npm run build"],
-  "forbid_verify_patterns": ["skipped", "deselected"],
+  "forbid_verify_patterns": ["(?:[1-9][0-9]*\\s+(?:skipped|deselected)|(?:skipped|deselected)\\s*[=:]?\\s*[1-9][0-9]*)"],
   "required_files": ["BENCHMARK_RESULTS.md", ".venv/bin/python", "package.json", "scripts/test-python.sh"],
   "required_any_files": [["package-lock.json", "node/package-lock.json", "packages/typescript-adapter/package-lock.json"]],
   "spec": "Build an npm-only local document-processing plugin with a Python extraction pipeline and a Node TypeScript adapter. Generate 200 deterministic mixed Markdown, CSV, SVG, and small PDF-like fixtures, extract metadata incrementally, create a search index, and expose tool-style JSON interfaces. Include malformed-file isolation and tests in both languages. Root package scripts must include test:node and build; test:node must run the complete TypeScript test suite. Provide an executable scripts/test-python.sh that activates the project-local import path and runs the complete Python suite with the project's chosen test runner. Keep an npm package-lock.json beside either the root or nested Node package; do not create pnpm, Yarn, or Bun lockfiles. Do not call remote services.",

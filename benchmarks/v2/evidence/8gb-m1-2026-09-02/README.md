@@ -36,7 +36,7 @@ The signal is large and directionally consistent, but the protocol requires at l
 
 The current worker-limit candidate also has two quality-valid Rust pairs and one Python data pair. Rust peak RSS fell by a median 28.7%, while P95 RSS was roughly flat (+2.8%). The single Python pair reduced peak RSS by 20.3% but increased active time by 17.9%; it is inconclusive. See `tuning-snapshot.csv` for the compact values.
 
-The plugin-docs diagnostics were not counted: they revealed fixed-command assumptions in the verifier. Generated projects passed their own Python and TypeScript suites, but earlier verifiers appended a Jest-only flag to Vitest, assumed a root `test` script, assumed pytest, or required a root-only lockfile. The workload now declares portable Node root scripts, a project-owned executable Python test script, and accepted npm lockfile locations. The runner now exits non-zero for quality failures, so prompt completion cannot be mistaken for a valid benchmark.
+The plugin-docs diagnostics were not counted: they revealed fixed-command assumptions in the verifier. Generated projects passed their own Python and TypeScript suites, but earlier verifiers appended a Jest-only flag to Vitest, assumed a root `test` script, assumed pytest, required a root-only lockfile, or treated TAP's `skipped 0` footer as a skipped test. The workload now declares portable Node root scripts, a project-owned executable Python test script, accepted npm lockfile locations, and non-zero skip-count matching. The runner now exits non-zero for quality failures, so prompt completion cannot be mistaken for a valid benchmark.
 
 ## Reproduce
 

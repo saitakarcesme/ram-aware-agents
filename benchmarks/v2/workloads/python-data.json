@@ -4,7 +4,7 @@
   "capability": ["python3"],
   "profile_split": "tuning",
   "verify": ["test -x .venv/bin/python && .venv/bin/python -m pytest -q -ra", ".venv/bin/python -m compileall -q src"],
-  "forbid_verify_patterns": ["skipped", "deselected"],
+  "forbid_verify_patterns": ["(?:[1-9][0-9]*\\s+(?:skipped|deselected)|(?:skipped|deselected)\\s*[=:]?\\s*[1-9][0-9]*)"],
   "required_files": ["BENCHMARK_RESULTS.md", ".venv/bin/python"],
   "spec": "Build a Python 3.12+ FastAPI telemetry service using only a local filesystem data store. Include deterministic generation of 750,000 CSV records, streaming ingestion, bounded multiprocessing aggregation, malformed-row quarantine, pytest unit and integration tests, and an HTTP API. Keep dependencies in pyproject.toml and provide repeatable CLI commands.",
   "prompts": [

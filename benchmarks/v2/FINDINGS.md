@@ -86,6 +86,7 @@ One quality-valid Python candidate pair reduced peak RSS by 20.3% but increased 
 - Browser verification originally omitted the E2E command. It now runs `typecheck`, component tests, E2E, and build independently and requires the lockfile and Playwright configuration.
 - Plugin-docs verification appended a Jest-only flag to a Vitest project and assumed a root `test` script that the workload did not require. The workload now declares portable `test:node` and `build` root contracts.
 - A forward run then showed that assuming pytest and a root-only lockfile was also too rigid: one valid project used `unittest`, and another placed its npm lockfile beside a nested Node package. The workload now requires a project-owned executable `scripts/test-python.sh` and accepts declared npm lockfile locations. The runner also exits non-zero when a completed case fails quality, rather than treating mere prompt completion as success.
+- The next smoke project passed Python, Node, and build commands and satisfied all required files, but Node's TAP footer `# skipped 0` triggered the old substring check. Skip/deselect patterns now reject only non-zero counts, with regression tests for both `skipped 0` and `1 skipped`.
 - Preflight originally failed when either optional agent was logged out. It now succeeds when at least one supported agent is authenticated and reports unavailable agents/workloads without blocking unrelated runs.
 
 The privacy-reviewed evidence snapshot and minimal chart are in [`evidence/8gb-m1-2026-09-02/`](evidence/8gb-m1-2026-09-02/README.md).

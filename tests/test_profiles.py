@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 import subprocess
 import unittest
 from pathlib import Path
@@ -54,6 +55,13 @@ class ProfileTests(unittest.TestCase):
         lockfile_choices = workload["required_any_files"][0]
         self.assertIn("package-lock.json", lockfile_choices)
         self.assertIn("node/package-lock.json", lockfile_choices)
+
+    def test_skip_patterns_reject_only_nonzero_counts(self) -> None:
+        for workload_name in ("browser-e2e", "typescript-next", "python-data", "plugin-docs"):
+            path = ROOT / "benchmarks" / "v2" / "workloads" / f"{workload_name}.json"
+            patterns = [re.compile(value, re.IGNORECASE) for value in json.loads(path.read_text())["forbid_verify_patterns"]]
+            self.assertFalse(any(pattern.search("# skipped 0\n0 deselected") for pattern in patterns))
+            self.assertTrue(any(pattern.search("1 skipped") for pattern in patterns))
 
 
 if __name__ == "__main__":

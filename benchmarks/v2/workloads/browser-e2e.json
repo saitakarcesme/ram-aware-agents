@@ -4,7 +4,7 @@
   "capability": ["node", "pnpm"],
   "profile_split": "tuning",
   "verify": ["pnpm typecheck", "pnpm test", "pnpm test:e2e", "pnpm build"],
-  "forbid_verify_patterns": ["skipped", "no tests found"],
+  "forbid_verify_patterns": ["(?:[1-9][0-9]*\\s+skipped|skipped\\s*[=:]?\\s*[1-9][0-9]*)", "no tests found"],
   "required_files": ["BENCHMARK_RESULTS.md", "package.json", "pnpm-lock.yaml", "playwright.config.ts"],
   "spec": "Build a pnpm-only offline-first React application with a local mock API, 40 deterministic UI scenarios, Vitest component tests, and Playwright Chromium tests covering desktop and mobile viewports. Generate 100,000 searchable records. Do not create npm, Yarn, or Bun lockfiles. Root scripts must include test, test:e2e, build, and typecheck. Browser tests must reuse one configured web server and clean it up.",
   "prompts": [
