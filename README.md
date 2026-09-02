@@ -2,8 +2,6 @@
 
 Performance-first instruction files for running Codex and Claude Code on MacBooks without making the machine unpleasant to use.
 
-[Türkçe README](README.tr.md)
-
 Choose your unified-memory tier, then copy the matching file into your project:
 
 | Memory | Codex | Claude Code | Operating style |
