@@ -10,3 +10,5 @@ These skills activate a RAM-aware execution budget for one task across the entir
 Copy the complete skill directory so its detection script remains beside `SKILL.md`. When no RAM amount is supplied, the skill detects Mac unified memory with `sysctl`. Unlisted capacities use the next lower profile; values above 128 GB use the 128 GB ceiling.
 
 The selected budget stays active for the current task and covers the full repository: agent fan-out, concurrent tool calls, browser tabs, heavy processes, background services, searches, builds, and tests.
+
+Use the files in `profiles/` for persistent, version-controlled project behavior. Use these skills for a temporary budget that applies only to the task in which the skill is invoked. Installation paths follow the current [Codex skill documentation](https://developers.openai.com/codex/skills) and [Claude Code skill documentation](https://code.claude.com/docs/en/slash-commands).

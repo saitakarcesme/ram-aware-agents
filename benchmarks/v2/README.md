@@ -2,6 +2,8 @@
 
 This suite tests whether project-level RAM profiles keep a Mac responsive without hiding failures or reducing task quality. Every measurement case starts from a new Git repository and a new agent session. Profile and control cases receive the same locked five-prompt workload.
 
+The current privacy-reviewed published result is the [`8 GB M1 evidence snapshot from 2026-09-02`](evidence/8gb-m1-2026-09-02/README.md). It is tuning evidence, not a completed cross-workload conclusion: only two browser-heavy pairs, two Rust pairs, and one Python pair passed the hardened quality gates, while the protocol below requires more repetitions.
+
 ## Workloads
 
 | Workload | Stack | Split |
@@ -54,7 +56,7 @@ python3 benchmarks/v2/harness/runner.py \
   --repetitions 1
 ```
 
-The default local result directory is ignored by Git because it contains full agent event logs and generated verification output. Curated summaries and privacy-reviewed samples can be published after analysis.
+The default local result directory is ignored by Git because it contains full agent event logs and generated verification output. Curated summaries and privacy-reviewed samples can be published after analysis. Matplotlib is needed only to render charts, not to run the benchmark or analyze CSV/JSON results.
 
 ## Safety and isolation
 

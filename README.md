@@ -2,6 +2,8 @@
 
 Performance-first instruction files for running Codex and Claude Code on MacBooks without making the machine unpleasant to use.
 
+[Türkçe README](README.tr.md)
+
 Choose your unified-memory tier, then copy the matching file into your project:
 
 | Memory | Codex | Claude Code | Operating style |
@@ -58,7 +60,7 @@ cp -R skills/claude-ram-profile /path/to/project/.claude/skills/
 
 The profiles tell the coding agent to prefer machine responsiveness over wall-clock speed. They limit agent/subagent fan-out, parallel tool calls, browser tabs, background servers, watchers, broad filesystem scans, simultaneous builds, and oversized test runs. They also define a memory-pressure fallback.
 
-Profiles also cap internal workers used by compilers, test runners, package managers, browser automation, and data-processing pools. Required project dependencies remain allowed and must not be replaced with skipped validation. All profile pairs are generated from [`scripts/generate_profiles.py`](scripts/generate_profiles.py) so Codex and Claude limits cannot drift silently.
+Profiles also cap internal workers used by compilers, test runners, package managers, browser automation, and data-processing pools. They require one package manager and lockfile convention per project, unless the repository intentionally documents a mixed setup. Required project dependencies remain allowed and must not be replaced with skipped validation. All profile pairs are generated from [`scripts/generate_profiles.py`](scripts/generate_profiles.py) so Codex and Claude limits cannot drift silently.
 
 These are behavioral instructions, not an operating-system resource limiter. An agent may fail to follow them, and a compiler, browser, container, local model, or plugin can still consume substantial memory. For hard limits, also use macOS Activity Monitor, container limits, tool-specific worker settings, and fewer enabled plugins/MCP servers.
 
@@ -75,9 +77,9 @@ These are behavioral instructions, not an operating-system resource limiter. An 
 
 ## Benchmark
 
-The current v2 evidence snapshot is published under [`benchmarks/v2/evidence/8gb-m1-2026-09-02/`](benchmarks/v2/evidence/8gb-m1-2026-09-02/README.md). It uses fresh projects, five-prompt workloads, alternating condition order, one-second sampling, and independent correctness gates.
+The current published v2 evidence snapshot is under [`benchmarks/v2/evidence/8gb-m1-2026-09-02/`](benchmarks/v2/evidence/8gb-m1-2026-09-02/README.md); the reproducible protocol and runner are documented in [`benchmarks/v2/`](benchmarks/v2/README.md). It uses fresh projects, five-prompt workloads, alternating condition order, one-second sampling, and independent correctness gates.
 
-In two quality-valid browser-heavy React/Playwright pairs, the 8 GB profile reduced median P95 Codex-tree RSS by 57.0%, median peak RSS by 58.9%, and browser process peaks from 22–24 to 7. Minimum free system memory improved from 32–49% to 55–60%. Median active-time delta was +5.0%, with large run-to-run variance. This is a strong signal, not a final universal claim: the protocol requires at least three valid pairs, Claude is awaiting user reauthentication, and memory tiers above 8 GB have not been measured on physical hardware.
+In two quality-valid browser-heavy React/Playwright pairs, the 8 GB profile reduced median P95 Codex-tree RSS by 57.0%, median peak RSS by 58.9%, and browser process peaks from 22–24 to 7. Minimum free system memory improved from 32–49% to 55–60%. Median active-time delta was +5.0%, with large run-to-run variance. This is a strong signal, not a final universal claim: the protocol requires at least three valid pairs. In this evidence snapshot, Claude could not be measured because its local OAuth session required reauthentication; memory tiers above 8 GB have not been measured on physical hardware.
 
 The earlier four-prompt pilot remains under [`benchmarks/codex-8gb-2026-09-01/`](benchmarks/codex-8gb-2026-09-01/README.md) for historical comparison. Benchmark defects discovered during the v2 runs led directly to stricter dependency, package-manager, worker-limit, E2E, and quality-gate rules.
 
@@ -87,7 +89,7 @@ The earlier four-prompt pilot remains under [`benchmarks/codex-8gb-2026-09-01/`]
 - [OpenAI: model guidance and lean tool orchestration](https://developers.openai.com/api/docs/guides/latest-model)
 - [Anthropic: how Claude remembers your project](https://code.claude.com/docs/en/memory)
 - [Anthropic: prompting guidance for parallel tool calls and subagents](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices)
-- [OpenAI: build Codex skills](https://learn.chatgpt.com/docs/build-skills)
+- [OpenAI: build Codex skills](https://developers.openai.com/codex/skills)
 - [Anthropic: extend Claude Code with skills](https://code.claude.com/docs/en/slash-commands)
 
 ## Contributing

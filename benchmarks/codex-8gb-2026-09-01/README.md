@@ -1,5 +1,7 @@
 # Codex RAM profile benchmark — 8 GB MacBook
 
+> **Historical pilot:** this single-run, four-prompt method has been superseded by the quality-gated, alternating-order [`v2 protocol`](../v2/README.md). Keep these numbers for comparison, but use the [`current published v2 evidence`](../v2/evidence/8gb-m1-2026-09-02/README.md) for the repository's headline result.
+
 Date: 2026-09-01
 
 Machine memory: 8 GiB unified memory
