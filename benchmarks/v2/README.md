@@ -41,6 +41,8 @@ Run preflight first:
 python3 benchmarks/v2/harness/preflight.py
 ```
 
+Preflight returns success when at least one supported agent is authenticated and disk space is sufficient. Unavailable optional agents and workloads (for example Claude or Docker) remain listed in its JSON output and are skipped or selected explicitly by the runner.
+
 Run one paired pilot:
 
 ```sh

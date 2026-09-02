@@ -3,10 +3,10 @@
   "title": "Plugin and document processing pipeline",
   "capability": ["python3", "node"],
   "profile_split": "tuning",
-  "verify": ["test -x .venv/bin/python && .venv/bin/python -m pytest -q -ra", "npm test -- --runInBand"],
+  "verify": ["test -x .venv/bin/python && .venv/bin/python -m pytest -q -ra", "npm run test:node", "npm run build"],
   "forbid_verify_patterns": ["skipped", "deselected"],
-  "required_files": ["BENCHMARK_RESULTS.md", ".venv/bin/python"],
-  "spec": "Build a local document-processing plugin with a Python extraction pipeline and a Node TypeScript adapter. Generate 200 deterministic mixed Markdown, CSV, SVG, and small PDF-like fixtures, extract metadata incrementally, create a search index, and expose tool-style JSON interfaces. Include malformed-file isolation and tests in both languages. Do not call remote services.",
+  "required_files": ["BENCHMARK_RESULTS.md", ".venv/bin/python", "package.json", "package-lock.json"],
+  "spec": "Build an npm-only local document-processing plugin with a Python extraction pipeline and a Node TypeScript adapter. Generate 200 deterministic mixed Markdown, CSV, SVG, and small PDF-like fixtures, extract metadata incrementally, create a search index, and expose tool-style JSON interfaces. Include malformed-file isolation and tests in both languages. Root package scripts must include test:node and build; test:node must run the complete TypeScript test suite. Do not create pnpm, Yarn, or Bun lockfiles. Do not call remote services.",
   "prompts": [
     "Create the Python and TypeScript packages, shared JSON schema, fixture generator, and focused contract tests. Create one project-local .venv, install declared Python dependencies into it once, and install declared Node dependencies once.",
     "Generate 200 mixed fixtures and implement bounded-memory incremental extraction with deterministic metadata output.",

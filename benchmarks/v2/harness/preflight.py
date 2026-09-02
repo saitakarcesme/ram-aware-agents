@@ -42,7 +42,10 @@ def main() -> int:
             reason = "Docker daemon unavailable"
         checks["workloads"][workload["id"]] = {"available": available, "reason": reason}
     print(json.dumps(checks, indent=2))
-    required = checks["codex_authenticated"] and checks["claude_authenticated"] and checks["disk_free_gib"] >= 20
+    # Optional agents and workloads must remain visible without blocking an
+    # otherwise runnable suite. The selected runner performs its own agent and
+    # capability checks before creating a case.
+    required = (checks["codex_authenticated"] or checks["claude_authenticated"]) and checks["disk_free_gib"] >= 20
     return 0 if required else 1
 
 

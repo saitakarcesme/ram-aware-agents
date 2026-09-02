@@ -44,6 +44,14 @@ class ProfileTests(unittest.TestCase):
             self.assertIn("playwright.config.ts", workload["required_files"])
             self.assertIn("pnpm-lock.yaml", workload["required_files"])
 
+    def test_plugin_workload_uses_declared_root_scripts(self) -> None:
+        path = ROOT / "benchmarks" / "v2" / "workloads" / "plugin-docs.json"
+        workload = json.loads(path.read_text())
+        self.assertIn("npm run test:node", workload["verify"])
+        self.assertIn("npm run build", workload["verify"])
+        self.assertNotIn("--runInBand", " ".join(workload["verify"]))
+        self.assertIn("package-lock.json", workload["required_files"])
+
 
 if __name__ == "__main__":
     unittest.main()
