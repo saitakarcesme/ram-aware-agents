@@ -34,6 +34,7 @@ Treat the script output as ceilings, not targets:
 - Reuse existing terminals, servers, browser tabs, environments, and worktrees. Do not duplicate them for convenience.
 - Do not enable optional plugins, MCP servers, containers, or local models unless the task requires them.
 - Install required declared dependencies once and sequentially in the project-local environment. Do not skip required validation because a dependency is missing.
+- Keep the repository's existing package manager and lockfile. For a greenfield project, choose one manager before the first install and never mix npm, pnpm, Yarn, or Bun artifacts.
 - Apply `max_internal_jobs` with the tool's native setting: Cargo `-j`, pnpm workspace concurrency, Vitest/Jest/Playwright workers, Python application pools, Swift/Xcode jobs, Make, Go, or Gradle workers. Do not add a dependency solely to enforce the limit.
 - Clean up task-created background processes and browser tabs before finishing.
 

@@ -19,6 +19,7 @@ class ProfileTests(unittest.TestCase):
                 content = (ROOT / "profiles" / f"{tier}gb" / filename).read_text()
                 self.assertIn(f"Limit internal parallelism inside any one build, test, data, or browser command to {jobs} worker", content)
                 self.assertIn("Required project dependencies may be installed", content)
+                self.assertIn("never mix npm, pnpm, Yarn, or Bun artifacts", content)
                 self.assertIn("Do not skip, deselect, or weaken required tests", content)
 
     def test_skill_detectors_match(self) -> None:
@@ -41,6 +42,7 @@ class ProfileTests(unittest.TestCase):
             self.assertIn("pnpm test:e2e", commands)
             self.assertIn("pnpm build", commands)
             self.assertIn("playwright.config.ts", workload["required_files"])
+            self.assertIn("pnpm-lock.yaml", workload["required_files"])
 
 
 if __name__ == "__main__":

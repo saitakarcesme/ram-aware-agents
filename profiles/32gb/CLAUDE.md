@@ -15,6 +15,7 @@ Machine responsiveness has higher priority than finishing quickly. These limits 
 ## Required dependencies and correctness
 
 - Required project dependencies may be installed when missing. Install them once, sequentially, into the project-local environment; do not confuse required dependencies with optional convenience tools.
+- Respect the repository's existing package manager and lockfile. In a new project, choose one package manager before installing dependencies and use it exclusively; never mix npm, pnpm, Yarn, or Bun artifacts.
 - Do not skip, deselect, or weaken required tests because a dependency is missing. Install the declared dependency, use the repository's documented environment, or report a genuine blocker.
 - Preserve requested dataset sizes, validation scope, and correctness checks. Lower resource use is not a win when the task is incomplete.
 - Reuse the same project-local environment and exact command family for development and final verification.
