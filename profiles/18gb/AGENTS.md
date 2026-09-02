@@ -1,26 +1,54 @@
 # Performance Profile — 18 GB MacBook
 
-Machine responsiveness has higher priority than finishing quickly. Treat the limits below as ceilings, not targets.
+Machine responsiveness has higher priority than finishing quickly. These limits are ceilings, not targets. Hardware verification status is documented in the repository README.
 
 ## Operating budget
 
-- Keep one active Codex task. Do not create or delegate to subagents.
-- Execute all writes, shell commands, and heavy tools sequentially. Do not issue parallel tool calls.
-- Keep at most 1 task-created browser tab open and reuse existing tabs.
-- Run only one memory-heavy process at a time. Heavy work includes builds, full test suites, dev servers, browser automation, containers, emulators, indexing, and local models.
-- Avoid watchers; use one-shot commands. If a dev server is necessary, keep only one and stop it after verification.
+- Keep exactly one active Codex task. Do not create, fork, delegate to, or run subagents/agent teams.
+- Execute tool calls, writes, and shell commands sequentially. Never launch parallel tool calls.
+- Allow at most 1 simultaneous lightweight read-only operation.
+- Keep at most 1 task-created browser tab; reuse existing tabs.
+- Run at most 1 top-level memory-heavy workflow. Builds, full tests, browser automation, containers, emulators, indexing, and local models are heavy.
+- Limit internal parallelism inside any one build, test, data, or browser command to 1 worker.
+- Keep at most 1 task-created background service, and stop each immediately after use.
+
+## Required dependencies and correctness
+
+- Required project dependencies may be installed when missing. Install them once, sequentially, into the project-local environment; do not confuse required dependencies with optional convenience tools.
+- Do not skip, deselect, or weaken required tests because a dependency is missing. Install the declared dependency, use the repository's documented environment, or report a genuine blocker.
+- Preserve requested dataset sizes, validation scope, and correctness checks. Lower resource use is not a win when the task is incomplete.
+- Reuse the same project-local environment and exact command family for development and final verification.
+
+## Tool-specific worker limits
+
+When the project supports the option, apply the 1-worker ceiling explicitly instead of relying on machine defaults:
+
+- Rust: `CARGO_BUILD_JOBS=1` and `cargo ... -j 1`.
+- pnpm workspaces: `--workspace-concurrency=1`; install dependencies only once.
+- Vitest: `--maxWorkers=1 --minWorkers=1`; Jest: `--runInBand`.
+- Playwright: `--workers=1` and one managed web server; never start a duplicate server manually.
+- Python: no pytest-xdist; application multiprocessing/worker pools default to 1. Use a larger pool only briefly when correctness explicitly requires comparing worker counts, then shut it down.
+- Swift/Xcode: `swift ... --jobs 1` and `xcodebuild -jobs 1`.
+- Make/Go/Gradle: `-j1`, `go ... -p 1`, or `--max-workers=1`.
+
+If a flag is unsupported, use the tool's equivalent configuration. Do not add a new dependency merely to enforce a worker limit.
 
 ## Working method
 
-- Start sequentially. Add permitted concurrency only when operations are independent and the expected benefit is material.
-- Inspect narrowly with `rg` or `rg --files` and scoped paths. Exclude dependencies, build outputs, caches, `.git`, and generated files.
-- Read only what is needed for the next decision. Inspect large files in chunks; avoid loading many images, PDFs, logs, or datasets into one turn.
+- Start sequentially. Add permitted lightweight concurrency only when operations are independent and materially useful.
+- Inspect narrowly with scoped `rg` or `rg --files`; exclude dependencies, build outputs, caches, `.git`, and generated data.
+- Read only what is needed for the next decision. Inspect large files in chunks and avoid loading many images, PDFs, logs, or datasets into one turn.
 - Make small changes and run the smallest relevant check first. Run full tests or a production build once near completion, not after every edit.
-- Do not combine package installation, indexing, full validation, browser automation, and a development server unless the operating budget explicitly permits it.
-- Reuse existing terminals, servers, environments, and worktrees. Do not create duplicates for convenience.
-- Prefer installed tools and existing dependencies. Do not enable extra plugins, MCP servers, containers, or local models unless required by the task.
-- Clean up task-created background processes, temporary servers, and browser tabs before finishing.
+- Never overlap package installation, indexing, a full build, a full test suite, browser automation, or an emulator unless the heavy-workflow budget explicitly allows it.
+- Reuse terminals, servers, environments, caches, browsers, containers, and worktrees. Do not duplicate them for convenience.
+- Track every task-created background PID or managed service and clean it up before finishing.
 
 ## Memory-pressure fallback
 
-If the UI stutters, swap rises, memory-pressure warnings appear, or a process is killed: stop optional/background work, return to fully sequential execution, close task-created tabs, reduce batch and worker counts, and retry only with a lighter command. Report the limitation instead of repeating the same resource-heavy action unchanged.
+Before and after a heavy command, check `memory_pressure -Q` and `sysctl vm.swapusage` when available. If free percentage falls below 20%, swap grows materially, the UI stutters, or a process is killed:
+
+1. Stop optional/background work and close task-created browser tabs.
+2. Return to one active worker and one heavy workflow, even if this tier permits more.
+3. Reduce the tool's internal worker count and batch size by half, with a minimum of one.
+4. Retry only the failed or smallest relevant check; do not repeat the same heavy command unchanged.
+5. Report the limitation if correctness cannot be completed within the reduced budget.

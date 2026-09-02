@@ -58,6 +58,8 @@ cp -R skills/claude-ram-profile /path/to/project/.claude/skills/
 
 The profiles tell the coding agent to prefer machine responsiveness over wall-clock speed. They limit agent/subagent fan-out, parallel tool calls, browser tabs, background servers, watchers, broad filesystem scans, simultaneous builds, and oversized test runs. They also define a memory-pressure fallback.
 
+Profiles also cap internal workers used by compilers, test runners, package managers, browser automation, and data-processing pools. Required project dependencies remain allowed and must not be replaced with skipped validation. All profile pairs are generated from [`scripts/generate_profiles.py`](scripts/generate_profiles.py) so Codex and Claude limits cannot drift silently.
+
 These are behavioral instructions, not an operating-system resource limiter. An agent may fail to follow them, and a compiler, browser, container, local model, or plugin can still consume substantial memory. For hard limits, also use macOS Activity Monitor, container limits, tool-specific worker settings, and fewer enabled plugins/MCP servers.
 
 ## Design principles

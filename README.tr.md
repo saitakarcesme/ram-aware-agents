@@ -15,6 +15,8 @@ cp profiles/16gb/CLAUDE.md /proje/yolu/CLAUDE.md
 
 Profiller; aynı anda açılan ajan, alt ajan, terminal komutu, tarayıcı sekmesi, test, build, watcher ve geliştirme sunucusu sayısını sınırlar. Geniş disk taramaları yerine hedefli arama, tüm testler yerine önce ilgili testler ve büyük dosyalarda parça parça okuma ister.
 
+Compiler, test runner, paket yöneticisi, browser automation ve veri işleme araçlarının kendi iç worker sayıları da RAM seviyesine göre sınırlandırılır. Gerekli proje bağımlılıklarının kurulmasına izin verilir; eksik bağımlılık nedeniyle zorunlu test atlamak başarı sayılmaz. Codex ve Claude dosyaları içerik farkı oluşmaması için [`scripts/generate_profiles.py`](scripts/generate_profiles.py) üzerinden üretilir.
+
 ## Görev kapsamlı skill'ler
 
 [`skills/`](skills/README.md) klasöründe iki taşınabilir skill bulunur:

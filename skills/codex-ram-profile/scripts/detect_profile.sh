@@ -37,16 +37,16 @@ else profile=8
 fi
 
 case "$profile" in
-  8)   workers=1; light=1; tabs=1; heavy=1; background=0 ;;
-  16)  workers=1; light=1; tabs=1; heavy=1; background=1 ;;
-  18)  workers=1; light=1; tabs=1; heavy=1; background=1 ;;
-  24)  workers=2; light=2; tabs=2; heavy=1; background=1 ;;
-  32)  workers=2; light=2; tabs=2; heavy=1; background=1 ;;
-  36)  workers=2; light=2; tabs=2; heavy=1; background=1 ;;
-  48)  workers=2; light=2; tabs=2; heavy=1; background=1 ;;
-  64)  workers=3; light=3; tabs=3; heavy=1; background=2 ;;
-  96)  workers=4; light=4; tabs=4; heavy=2; background=3 ;;
-  128) workers=5; light=4; tabs=5; heavy=2; background=4 ;;
+  8)   workers=1; light=1; tabs=1; heavy=1; background=0; internal=1 ;;
+  16)  workers=1; light=1; tabs=1; heavy=1; background=1; internal=1 ;;
+  18)  workers=1; light=1; tabs=1; heavy=1; background=1; internal=1 ;;
+  24)  workers=2; light=2; tabs=2; heavy=1; background=1; internal=2 ;;
+  32)  workers=2; light=2; tabs=2; heavy=1; background=1; internal=2 ;;
+  36)  workers=2; light=2; tabs=2; heavy=1; background=1; internal=2 ;;
+  48)  workers=2; light=2; tabs=2; heavy=1; background=1; internal=2 ;;
+  64)  workers=3; light=3; tabs=3; heavy=1; background=2; internal=2 ;;
+  96)  workers=4; light=4; tabs=4; heavy=2; background=3; internal=3 ;;
+  128) workers=5; light=4; tabs=5; heavy=2; background=4; internal=4 ;;
 esac
 
 printf 'source=%s\n' "$source_name"
@@ -57,3 +57,4 @@ printf 'max_light_calls=%s\n' "$light"
 printf 'max_browser_tabs=%s\n' "$tabs"
 printf 'max_heavy_processes=%s\n' "$heavy"
 printf 'max_background_services=%s\n' "$background"
+printf 'max_internal_jobs=%s\n' "$internal"

@@ -21,6 +21,7 @@ Treat the script output as ceilings, not targets:
 - `max_heavy_processes` covers builds, full test suites, dev servers, browser automation, containers, emulators, indexing, and local models across the whole project.
 - `max_background_services` covers watchers, servers, emulators, containers, and other task-created persistent processes.
 - `max_browser_tabs` covers all tabs created for this task.
+- `max_internal_jobs` caps workers inside one compiler, test runner, package manager, browser runner, or data-processing command.
 
 ## Operate within the budget
 
@@ -32,6 +33,8 @@ Treat the script output as ceilings, not targets:
 - Run the smallest relevant check first. Reserve full validation for the end unless the task specifically requires it earlier.
 - Reuse existing terminals, servers, browser tabs, environments, and worktrees. Do not duplicate them for convenience.
 - Do not enable optional plugins, MCP servers, containers, or local models unless the task requires them.
+- Install required declared dependencies once and sequentially in the project-local environment. Do not skip required validation because a dependency is missing.
+- Apply `max_internal_jobs` with the tool's native setting: Cargo `-j`, pnpm workspace concurrency, Vitest/Jest/Playwright workers, Python application pools, Swift/Xcode jobs, Make, Go, or Gradle workers. Do not add a dependency solely to enforce the limit.
 - Clean up task-created background processes and browser tabs before finishing.
 
 Existing system, user, and project instructions still apply. When another instruction is stricter, follow the stricter limit. This skill does not expand permissions or authorize unrelated changes.
