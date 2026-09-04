@@ -202,7 +202,8 @@ def run_serialized(encoded: str) -> int:
         fcntl.flock(lock.fileno(), fcntl.LOCK_EX)
         waited = time.monotonic() - started
         log_event(cwd, {"event": "run", "tier": tier, "action": "start", "jobs": jobs, "waited_seconds": waited, "free_percent": pressure, "command": command})
-        completed = subprocess.run(["/bin/zsh", "-lc", command], env=environment)
+        shell = "/bin/zsh" if Path("/bin/zsh").exists() else "/bin/sh"
+        completed = subprocess.run([shell, "-lc", command], env=environment)
         log_event(cwd, {"event": "run", "tier": tier, "action": "finish", "jobs": jobs, "exit_code": completed.returncode, "elapsed_seconds": time.monotonic() - started, "command": command})
         return completed.returncode
 

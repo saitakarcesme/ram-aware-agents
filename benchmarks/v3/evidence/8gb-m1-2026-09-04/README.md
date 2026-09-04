@@ -38,7 +38,7 @@ The browser diagnostics still show a resource signal: control peak RSS was 2.54â
 This snapshot does not meet the protocol minimum of three quality-valid triples per workload. It supports keeping `AGENTS.md` as the default broad planning mechanism and offering RAM Guard as optional runtime enforcement, not replacing the instruction file universally. The hook has a real shell enforcement boundary and strong peak control, but current Codex hooks cannot cancel a starting subagent and the browser result shows that lower resource use is not sufficient when correctness fails.
 
 Tested hook hashes: `986bea382783a7d7638b311a2c856362ac5140e03bdef74406327823e43e3d1b`.
-Current hook hash: `be21066e806e129211ee952e8473fc7bee4e83d40cd515b6c17333382c74d38c`.
+Current hook hash: `b5cdec3874e2be7a34537151991282de7ec8cb85e149bf5861c976dc3dfb449c`.
 
 The current hook differs from the measured tuning candidate: duplicate startup/resume context injection was removed after telemetry showed ten context events for five prompts, and rewritten tool inputs now preserve non-command fields. The worker/serialization policy is unchanged, but the hardened candidate requires fresh repetitions before final claims.
 
