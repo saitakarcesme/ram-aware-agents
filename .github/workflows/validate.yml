@@ -1,4 +1,4 @@
-name: Validate profiles
+name: Validate RAM-aware agents
 
 on:
   push:
@@ -16,4 +16,4 @@ jobs:
         with:
           python-version: "3.12"
       - run: python3 -m unittest discover -s tests -v
-      - run: python3 -m py_compile benchmarks/v2/harness/*.py scripts/generate_profiles.py
+      - run: python3 -m py_compile benchmarks/v2/harness/*.py benchmarks/v3/harness/*.py hooks/codex-ram-guard/*.py scripts/generate_profiles.py

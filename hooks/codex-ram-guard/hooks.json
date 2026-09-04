@@ -1,0 +1,58 @@
+{
+  "description": "RAM-aware planning guidance and serialized heavy shell execution.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/ram_guard.py\"",
+            "timeout": 10,
+            "statusMessage": "Loading RAM budget",
+            "additionalContextLimit": 2000
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/ram_guard.py\"",
+            "timeout": 10,
+            "statusMessage": "Applying RAM budget",
+            "additionalContextLimit": 2000
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/ram_guard.py\"",
+            "timeout": 10,
+            "statusMessage": "Applying RAM budget to subagent",
+            "additionalContextLimit": 2000
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "^Bash$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/ram_guard.py\"",
+            "timeout": 10,
+            "statusMessage": "Checking RAM budget"
+          }
+        ]
+      }
+    ]
+  }
+}

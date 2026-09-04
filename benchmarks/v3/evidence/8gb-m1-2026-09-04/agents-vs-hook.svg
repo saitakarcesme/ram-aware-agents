@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="520" viewBox="0 0 1000 520">
+<rect x="0" y="0" width="1000" height="520" fill="#ffffff"/>
+<style>text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#111} .title{font-size:18px;font-weight:600}.axis{font-size:11px}.value{font-size:10px}.frame{fill:none;stroke:#222;stroke-width:1}.grid{stroke:#ddd;stroke-width:1}</style>
+<text x="20" y="30" class="title">RAM-aware mechanism comparison — quality-valid v3 runs</text>
+<text x="250.0" y="58" text-anchor="middle" class="title">Peak process-tree RSS</text>
+<line x1="90" y1="395.0" x2="480" y2="395.0" class="grid"/>
+<text x="82" y="399.0" text-anchor="end" class="axis">0.0</text>
+<line x1="90" y1="315.0" x2="480" y2="315.0" class="grid"/>
+<text x="82" y="319.0" text-anchor="end" class="axis">0.4</text>
+<line x1="90" y1="235.0" x2="480" y2="235.0" class="grid"/>
+<text x="82" y="239.0" text-anchor="end" class="axis">0.9</text>
+<line x1="90" y1="155.0" x2="480" y2="155.0" class="grid"/>
+<text x="82" y="159.0" text-anchor="end" class="axis">1.3</text>
+<line x1="90" y1="75.0" x2="480" y2="75.0" class="grid"/>
+<text x="82" y="79.0" text-anchor="end" class="axis">1.8</text>
+<rect x="90" y="75" width="390" height="320" class="frame"/>
+<rect x="145.5" y="326.1" width="26.0" height="68.9" fill="#ffffff" stroke="#111"/>
+<text x="158.5" y="322.1" text-anchor="middle" class="value">0.39</text>
+<rect x="174.5" y="328.6" width="26.0" height="66.4" fill="#a8a8a8" stroke="#111"/>
+<text x="187.5" y="324.6" text-anchor="middle" class="value">0.37</text>
+<rect x="203.5" y="334.5" width="26.0" height="60.5" fill="#222222" stroke="#111"/>
+<text x="216.5" y="330.5" text-anchor="middle" class="value">0.34</text>
+<text x="187.5" y="415" text-anchor="middle" class="axis">python-data r1</text>
+<rect x="340.5" y="109.3" width="26.0" height="285.7" fill="#ffffff" stroke="#111"/>
+<text x="353.5" y="105.3" text-anchor="middle" class="value">1.61</text>
+<rect x="369.5" y="336.6" width="26.0" height="58.4" fill="#a8a8a8" stroke="#111"/>
+<text x="382.5" y="332.6" text-anchor="middle" class="value">0.33</text>
+<rect x="398.5" y="326.8" width="26.0" height="68.2" fill="#222222" stroke="#111"/>
+<text x="411.5" y="322.8" text-anchor="middle" class="value">0.38</text>
+<text x="382.5" y="415" text-anchor="middle" class="axis">rust-workspace r1</text>
+<text x="30" y="235.0" transform="rotate(-90 30 235.0)" text-anchor="middle" class="axis">GiB</text>
+<text x="750.0" y="58" text-anchor="middle" class="title">Active completion time</text>
+<line x1="590" y1="395.0" x2="980" y2="395.0" class="grid"/>
+<text x="582" y="399.0" text-anchor="end" class="axis">0.0</text>
+<line x1="590" y1="315.0" x2="980" y2="315.0" class="grid"/>
+<text x="582" y="319.0" text-anchor="end" class="axis">221.3</text>
+<line x1="590" y1="235.0" x2="980" y2="235.0" class="grid"/>
+<text x="582" y="239.0" text-anchor="end" class="axis">442.5</text>
+<line x1="590" y1="155.0" x2="980" y2="155.0" class="grid"/>
+<text x="582" y="159.0" text-anchor="end" class="axis">663.8</text>
+<line x1="590" y1="75.0" x2="980" y2="75.0" class="grid"/>
+<text x="582" y="79.0" text-anchor="end" class="axis">885.0</text>
+<rect x="590" y="75" width="390" height="320" class="frame"/>
+<rect x="645.5" y="123.0" width="26.0" height="272.0" fill="#ffffff" stroke="#111"/>
+<text x="658.5" y="119.0" text-anchor="middle" class="value">752</text>
+<rect x="674.5" y="109.3" width="26.0" height="285.7" fill="#a8a8a8" stroke="#111"/>
+<text x="687.5" y="105.3" text-anchor="middle" class="value">790</text>
+<rect x="703.5" y="134.4" width="26.0" height="260.6" fill="#222222" stroke="#111"/>
+<text x="716.5" y="130.4" text-anchor="middle" class="value">721</text>
+<text x="687.5" y="415" text-anchor="middle" class="axis">python-data r1</text>
+<rect x="840.5" y="162.1" width="26.0" height="232.9" fill="#ffffff" stroke="#111"/>
+<text x="853.5" y="158.1" text-anchor="middle" class="value">644</text>
+<rect x="869.5" y="124.5" width="26.0" height="270.5" fill="#a8a8a8" stroke="#111"/>
+<text x="882.5" y="120.5" text-anchor="middle" class="value">748</text>
+<rect x="898.5" y="160.0" width="26.0" height="235.0" fill="#222222" stroke="#111"/>
+<text x="911.5" y="156.0" text-anchor="middle" class="value">650</text>
+<text x="882.5" y="415" text-anchor="middle" class="axis">rust-workspace r1</text>
+<text x="530" y="235.0" transform="rotate(-90 530 235.0)" text-anchor="middle" class="axis">seconds</text>
+<rect x="285" y="475" width="18" height="18" fill="#ffffff" stroke="#111"/>
+<text x="311" y="489" class="axis">control</text>
+<rect x="455" y="475" width="18" height="18" fill="#a8a8a8" stroke="#111"/>
+<text x="481" y="489" class="axis">AGENTS.md</text>
+<rect x="625" y="475" width="18" height="18" fill="#222222" stroke="#111"/>
+<text x="651" y="489" class="axis">hook</text>
+</svg>

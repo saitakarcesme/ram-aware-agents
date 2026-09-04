@@ -48,6 +48,11 @@ def case_metrics(case_dir: Path) -> dict[str, Any]:
         "tree_rss_peak_gib": max(rss, default=0) / GIB,
         "system_used_peak_gib": max(system, default=0) / GIB,
         "system_free_percent_min": min(free, default=-1),
+        "system_free_drop_points": (
+            float(summary.get("baseline", {}).get("system_free_percent", -1)) - min(free)
+            if free and float(summary.get("baseline", {}).get("system_free_percent", -1)) >= 0
+            else -1
+        ),
         "memory_pressure_low_seconds": sum(value < 25 for value in free),
         "memory_pressure_critical_seconds": sum(value < 10 for value in free),
         "swap_growth_mib": (swaps[-1] - swaps[0]) / 1024**2 if swaps else -1,

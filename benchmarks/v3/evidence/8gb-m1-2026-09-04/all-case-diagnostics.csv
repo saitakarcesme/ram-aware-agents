@@ -1,0 +1,13 @@
+workload,repetition,condition,quality_passed,active_seconds,p95_rss_gib,peak_rss_gib,process_peak,browser_process_peak
+browser-e2e,1,control,False,923.846,2.748938,3.266403,27,22
+browser-e2e,2,control,True,846.765,1.673709,2.539307,28,22
+browser-e2e,1,hook,True,1487.091,1.155381,1.40947,15,7
+browser-e2e,2,hook,False,1184.767,0.684097,1.058456,8,2
+browser-e2e,1,profile,True,957.752,1.138632,1.406296,15,10
+browser-e2e,2,profile,True,1499.126,1.087803,1.304886,15,7
+python-data,1,control,True,752.223,0.288222,0.387558,8,0
+python-data,1,hook,True,720.831,0.252907,0.340027,8,0
+python-data,1,profile,True,790.2,0.250037,0.373306,7,0
+rust-workspace,1,control,True,644.19,0.232828,1.606537,32,0
+rust-workspace,1,hook,True,649.842,0.221329,0.383331,8,0
+rust-workspace,1,profile,True,748.18,0.215195,0.328613,7,0

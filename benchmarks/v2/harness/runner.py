@@ -171,7 +171,6 @@ def summarize(samples: list[dict[str, float | int]], elapsed: float, exit_code: 
 def codex_command(prompt: str, session_id: str | None) -> list[str]:
     common = [
         "--json",
-        "--ignore-user-config",
         "--ignore-rules",
         "--dangerously-bypass-approvals-and-sandbox",
         "-m",
@@ -179,6 +178,10 @@ def codex_command(prompt: str, session_id: str | None) -> list[str]:
         "-c",
         f'model_reasoning_effort="{PROTOCOL["agents"]["codex"]["effort"]}"',
     ]
+    if "hook" in PROTOCOL.get("conditions", []):
+        common.append("--dangerously-bypass-hook-trust")
+    else:
+        common.append("--ignore-user-config")
     if session_id:
         return ["codex", "exec", "resume", *common, session_id, prompt]
     return ["codex", "exec", *common, prompt]
@@ -220,7 +223,7 @@ def codex_session_id(log_path: Path) -> str | None:
 
 def execute_prompt(
     *, agent: str, project: Path, prompt: str, prompt_index: int, output: Path,
-    session_id: str | None, codex_home: Path,
+    session_id: str | None, codex_home: Path, hook_log: Path | None = None,
 ) -> tuple[dict[str, Any], str | None]:
     log_path = output / f"prompt-{prompt_index:02d}.jsonl"
     csv_path = output / f"prompt-{prompt_index:02d}-samples.csv"
@@ -233,6 +236,9 @@ def execute_prompt(
     environment.update({"NO_COLOR": "1", "CI": "1", "PNPM_CONFIG_CONFIRM_MODULES_PURGE": "false"})
     if agent == "codex":
         environment["CODEX_HOME"] = str(codex_home)
+        if hook_log is not None:
+            environment["RAM_GUARD_LOG"] = str(hook_log)
+            environment["RAM_GUARD_MEMORY_GB"] = str(PROTOCOL.get("memory_tier_gib", 8))
     started = time.monotonic()
     samples: list[dict[str, float | int]] = []
     timed_out = False
@@ -301,6 +307,14 @@ def prepare_project(base: Path, workload: dict[str, Any], agent: str, condition:
     if condition == "profile":
         source = ROOT / "profiles" / "8gb" / ("AGENTS.md" if agent == "codex" else "CLAUDE.md")
         shutil.copy2(source, project / source.name)
+    elif condition == "hook":
+        if agent != "codex":
+            raise ValueError("The v3 hook condition currently supports Codex only")
+        hook_source = ROOT / "hooks" / "codex-ram-guard"
+        hook_target = project / ".codex" / "hooks"
+        hook_target.mkdir(parents=True)
+        shutil.copy2(hook_source / "hooks.json", project / ".codex" / "hooks.json")
+        shutil.copy2(hook_source / "ram_guard.py", hook_target / "ram_guard.py")
     subprocess.run(["git", "init", "-q", "-b", "main"], cwd=project, check=True)
     subprocess.run(["git", "config", "user.name", "RAM Benchmark"], cwd=project, check=True)
     subprocess.run(["git", "config", "user.email", "benchmark@example.invalid"], cwd=project, check=True)
@@ -313,6 +327,17 @@ def profile_identity(agent: str) -> dict[str, str]:
     path = ROOT / "profiles" / "8gb" / ("AGENTS.md" if agent == "codex" else "CLAUDE.md")
     commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
     return {"path": str(path.relative_to(ROOT)), "sha256": hashlib.sha256(path.read_bytes()).hexdigest(), "commit": commit}
+
+
+def condition_identity(agent: str, condition: str) -> dict[str, str]:
+    if condition == "profile":
+        return profile_identity(agent)
+    if condition == "hook":
+        paths = [ROOT / "hooks" / "codex-ram-guard" / name for name in ("hooks.json", "ram_guard.py")]
+        digest = hashlib.sha256(b"".join(path.read_bytes() for path in paths)).hexdigest()
+        commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
+        return {"path": "hooks/codex-ram-guard", "sha256": digest, "commit": commit}
+    return {"path": "none", "sha256": "none", "commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()}
 
 
 def verify(project: Path, workload: dict[str, Any], output: Path) -> dict[str, Any]:
@@ -355,6 +380,30 @@ def verify(project: Path, workload: dict[str, Any], output: Path) -> dict[str, A
     }
 
 
+def hook_telemetry(path: Path) -> dict[str, Any]:
+    rows = []
+    if path.exists():
+        for line in path.read_text(errors="replace").splitlines():
+            try:
+                rows.append(json.loads(line))
+            except json.JSONDecodeError:
+                continue
+    starts = [row for row in rows if row.get("event") == "run" and row.get("action") == "start"]
+    finishes = [row for row in rows if row.get("event") == "run" and row.get("action") == "finish"]
+    return {
+        "path": path.name,
+        "events": len(rows),
+        "context_events": sum(row.get("action") == "context" for row in rows),
+        "rewritten_commands": sum(row.get("action") == "rewrite-heavy" for row in rows),
+        "background_denials": sum(row.get("action") == "deny-background" for row in rows),
+        "serialized_starts": len(starts),
+        "serialized_finishes": len(finishes),
+        "nonzero_finishes": sum(row.get("exit_code") != 0 for row in finishes),
+        "lock_wait_seconds": sum(float(row.get("waited_seconds", 0)) for row in starts),
+        "verified": bool(rows) and len(starts) == len(finishes),
+    }
+
+
 def run_case(args: argparse.Namespace, workload: dict[str, Any], repetition: int, condition: str) -> dict[str, Any]:
     case_id = f"{workload['id']}__{args.agent}__{condition}__r{repetition:02d}"
     output = args.results / case_id
@@ -374,6 +423,7 @@ def run_case(args: argparse.Namespace, workload: dict[str, Any], repetition: int
     session_id: str | None = None
     prompt_summaries = []
     baseline = system_snapshot()
+    hook_log = output / "hook-events.jsonl"
     case_started = time.monotonic()
     try:
         for index, task in enumerate(workload["prompts"], start=1):
@@ -386,6 +436,7 @@ def run_case(args: argparse.Namespace, workload: dict[str, Any], repetition: int
             summary, session_id = execute_prompt(
                 agent=args.agent, project=project, prompt=prompt, prompt_index=index,
                 output=output, session_id=session_id, codex_home=codex_home,
+                hook_log=hook_log if condition == "hook" else None,
             )
             prompt_summaries.append(summary)
             if summary["exit_code"] != 0 or summary["timed_out"] or session_id is None:
@@ -394,6 +445,10 @@ def run_case(args: argparse.Namespace, workload: dict[str, Any], repetition: int
         verification = verify(project, workload, output) if len(prompt_summaries) == len(workload["prompts"]) else {"passed": False, "commands": [], "required_files": []}
         leaks = current_leaks(project)
         stop_leaks(leaks)
+        telemetry = hook_telemetry(hook_log) if condition == "hook" else None
+        quality_passed = verification["passed"] and not leaks
+        if telemetry is not None:
+            quality_passed = quality_passed and telemetry["verified"]
         result = {
             "case_id": case_id,
             "status": "complete" if len(prompt_summaries) == len(workload["prompts"]) else "incomplete",
@@ -401,14 +456,15 @@ def run_case(args: argparse.Namespace, workload: dict[str, Any], repetition: int
             "split": workload["profile_split"],
             "agent": args.agent,
             "condition": condition,
-            "profile_identity": profile_identity(args.agent),
+            "condition_identity": condition_identity(args.agent, condition),
             "repetition": repetition,
             "elapsed_seconds": time.monotonic() - case_started,
             "baseline": baseline,
             "prompts": prompt_summaries,
             "verification": verification,
             "leaked_processes": leaks,
-            "quality_passed": verification["passed"] and not leaks,
+            "hook_telemetry": telemetry,
+            "quality_passed": quality_passed,
         }
         (output / "case-summary.json").write_text(json.dumps(result, indent=2) + "\n")
         return result
@@ -434,8 +490,10 @@ def main() -> int:
     parser.add_argument("--results", type=Path, default=V2 / "results" / "local")
     parser.add_argument("--workspace", type=Path, default=Path(tempfile.gettempdir()))
     parser.add_argument("--keep-projects", action="store_true")
-    parser.add_argument("--only-condition", choices=["profile", "control"])
+    parser.add_argument("--only-condition", choices=PROTOCOL["conditions"])
     args = parser.parse_args()
+    args.results = args.results.expanduser().resolve()
+    args.workspace = args.workspace.expanduser().resolve()
     args.results.mkdir(parents=True, exist_ok=True)
     args.workspace.mkdir(parents=True, exist_ok=True)
     workloads = load_workloads(args.workload)
@@ -444,7 +502,9 @@ def main() -> int:
     manifest = []
     for workload in workloads:
         for repetition in range(1, args.repetitions + 1):
-            order = ["profile", "control"] if repetition % 2 else ["control", "profile"]
+            conditions = list(PROTOCOL["conditions"])
+            offset = (repetition - 1) % len(conditions)
+            order = conditions[offset:] + conditions[:offset]
             if args.only_condition:
                 order = [args.only_condition]
             for condition in order:

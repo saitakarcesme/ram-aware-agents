@@ -1,0 +1,7 @@
+workload,repetition,condition,active_seconds,average_rss_gib,p95_rss_gib,peak_rss_gib,free_memory_drop_points,responsiveness_p95_ms,process_peak,browser_process_peak
+python-data,1,control,752.223,0.192859,0.288222,0.387558,15.0,2.933979,8,0
+python-data,1,profile,790.2,0.189715,0.250037,0.373306,4.0,3.064583,7,0
+python-data,1,hook,720.831,0.182577,0.252907,0.340027,24.0,2.899973,8,0
+rust-workspace,1,control,644.19,0.212722,0.232828,1.606537,7.0,3.1798,32,0
+rust-workspace,1,profile,748.18,0.17156,0.215195,0.328613,9.0,2.985458,7,0
+rust-workspace,1,hook,649.842,0.169152,0.221329,0.383331,13.0,2.750406,8,0

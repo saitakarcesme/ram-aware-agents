@@ -54,6 +54,16 @@ Claude Code project installation:
 cp -R skills/claude-ram-profile /path/to/project/.claude/skills/
 ```
 
+## Runtime hook for Codex
+
+[`hooks/codex-ram-guard/`](hooks/codex-ram-guard/README.md) is an experimental project hook that carries the same performance-first philosophy into the Codex lifecycle. Unlike an instruction file alone, it can rewrite recognized heavy Bash calls so they share a per-project lock, apply RAM-tier worker environment ceilings, and reject detached heavy commands. It injects a concise RAM budget before each prompt and for each starting subagent, then restores it after context compaction.
+
+```sh
+python3 hooks/codex-ram-guard/install.py /path/to/project
+```
+
+Review and trust the installed project hook with `/hooks`. Hook trust is intentionally hash-specific. The hook does not replace all planning guidance: current Codex hooks can advise a starting subagent but cannot cancel that start, and non-shell tools may remain outside hard enforcement. Based on the preliminary v3 evidence, `AGENTS.md` remains the default recommendation; add RAM Guard when runtime shell enforcement matters.
+
 ## What these profiles control
 
 The profiles tell the coding agent to prefer machine responsiveness over wall-clock speed. They limit agent/subagent fan-out, parallel tool calls, browser tabs, background servers, watchers, broad filesystem scans, simultaneous builds, and oversized test runs. They also define a memory-pressure fallback.
@@ -75,11 +85,17 @@ These are behavioral instructions, not an operating-system resource limiter. An 
 
 ## Benchmark
 
-The current published v2 evidence snapshot is under [`benchmarks/v2/evidence/8gb-m1-2026-09-02/`](benchmarks/v2/evidence/8gb-m1-2026-09-02/README.md); the reproducible protocol and runner are documented in [`benchmarks/v2/`](benchmarks/v2/README.md). It uses fresh projects, five-prompt workloads, alternating condition order, one-second sampling, and independent correctness gates.
+The current three-arm evidence snapshot is under [`benchmarks/v3/evidence/8gb-m1-2026-09-04/`](benchmarks/v3/evidence/8gb-m1-2026-09-04/README.md). It compares unconstrained control, project `AGENTS.md`, and the Codex RAM Guard hook using fresh projects, five-prompt workloads, one-second sampling, rotating condition order, independent correctness gates, and hook telemetry.
+
+One quality-valid Rust triple and one quality-valid Python triple show that both mechanisms reduced process-tree memory. Rust peak RSS fell from 1.607 GiB to 0.329 GiB with `AGENTS.md` and 0.383 GiB with the hook. Python P95 RSS fell from 0.288 GiB to 0.250 GiB and 0.253 GiB respectively. In both workloads the hook finished faster than `AGENTS.md`, but the sample size is below the protocol minimum and two browser-heavy triples were excluded because one arm failed independent E2E verification. The measured hook candidate also exposed duplicate context injection and tool-input preservation hardening, both fixed in the current unremeasured candidate.
+
+The earlier profile/control evidence remains under [`benchmarks/v2/evidence/8gb-m1-2026-09-02/`](benchmarks/v2/evidence/8gb-m1-2026-09-02/README.md); its reproducible protocol and runner are documented in [`benchmarks/v2/`](benchmarks/v2/README.md).
 
 In two quality-valid browser-heavy React/Playwright pairs, the 8 GB profile reduced median P95 Codex-tree RSS by 57.0%, median peak RSS by 58.9%, and browser process peaks from 22–24 to 7. Minimum free system memory improved from 32–49% to 55–60%. Median active-time delta was +5.0%, with large run-to-run variance. This is a strong signal, not a final universal claim: the protocol requires at least three valid pairs. In this evidence snapshot, Claude could not be measured because its local OAuth session required reauthentication; memory tiers above 8 GB have not been measured on physical hardware.
 
 The earlier four-prompt pilot remains under [`benchmarks/codex-8gb-2026-09-01/`](benchmarks/codex-8gb-2026-09-01/README.md) for historical comparison. Benchmark defects discovered during the v2 runs led directly to stricter dependency, package-manager, worker-limit, E2E, and quality-gate rules.
+
+The [`benchmarks/v3/`](benchmarks/v3/README.md) protocol, analyzer, evidence publisher, and minimal black-and-white SVG chart are reproducible. Local raw results stay ignored because they contain full generated source and agent event logs.
 
 ## Sources
 
@@ -88,6 +104,7 @@ The earlier four-prompt pilot remains under [`benchmarks/codex-8gb-2026-09-01/`]
 - [Anthropic: how Claude remembers your project](https://code.claude.com/docs/en/memory)
 - [Anthropic: prompting guidance for parallel tool calls and subagents](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices)
 - [OpenAI: build Codex skills](https://developers.openai.com/codex/skills)
+- [OpenAI: Codex hooks](https://learn.chatgpt.com/docs/hooks)
 - [Anthropic: extend Claude Code with skills](https://code.claude.com/docs/en/slash-commands)
 
 ## Contributing
