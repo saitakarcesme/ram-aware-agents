@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+<rect width="1600" height="900" fill="#ffffff"/>
+<text x="90" y="90" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="47" font-weight="500" text-anchor="start" fill="#111111">Hook vs AGENTS.md: the time–memory tradeoff</text>
+<text x="90" y="137" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="25" font-weight="400" text-anchor="start" fill="#555555">8 GB M1 MacBook · direct AGENTS.md → hook movement · lower-left is better</text>
+<text x="1510" y="88" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="26" font-weight="500" text-anchor="end" fill="#111111">02 / 02</text>
+<line x1="90" y1="170" x2="1510" y2="170" stroke="#111111" stroke-width="2"/>
+<rect x="190" y="245" width="1260" height="445" fill="none" stroke="#111111" stroke-width="2"/>
+<text x="820.0" y="775" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="500" text-anchor="middle" fill="#111111">Active completion time (seconds)</text>
+<text x="57" y="467.5" transform="rotate(-90 57 467.5)" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="500" text-anchor="middle" fill="#111111">Peak process-tree RSS (GiB)</text>
+<line x1="256.3" y1="245" x2="256.3" y2="690" stroke="#dedede" stroke-width="1"/>
+<text x="256.3157894736842" y="728" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="19" font-weight="400" text-anchor="middle" fill="#666666">640</text>
+<line x1="521.6" y1="245" x2="521.6" y2="690" stroke="#dedede" stroke-width="1"/>
+<text x="521.578947368421" y="728" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="19" font-weight="400" text-anchor="middle" fill="#666666">680</text>
+<line x1="786.8" y1="245" x2="786.8" y2="690" stroke="#dedede" stroke-width="1"/>
+<text x="786.8421052631578" y="728" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="19" font-weight="400" text-anchor="middle" fill="#666666">720</text>
+<line x1="1052.1" y1="245" x2="1052.1" y2="690" stroke="#dedede" stroke-width="1"/>
+<text x="1052.1052631578948" y="728" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="19" font-weight="400" text-anchor="middle" fill="#666666">760</text>
+<line x1="1317.4" y1="245" x2="1317.4" y2="690" stroke="#dedede" stroke-width="1"/>
+<text x="1317.3684210526317" y="728" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="19" font-weight="400" text-anchor="middle" fill="#666666">800</text>
+<line x1="190" y1="690.0" x2="1450" y2="690.0" stroke="#dedede" stroke-width="1"/>
+<text x="172" y="697.0" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="19" font-weight="400" text-anchor="end" fill="#666666">0.25</text>
+<line x1="190" y1="578.8" x2="1450" y2="578.8" stroke="#dedede" stroke-width="1"/>
+<text x="172" y="585.75" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="19" font-weight="400" text-anchor="end" fill="#666666">0.30</text>
+<line x1="190" y1="467.5" x2="1450" y2="467.5" stroke="#dedede" stroke-width="1"/>
+<text x="172" y="474.50000000000006" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="19" font-weight="400" text-anchor="end" fill="#666666">0.35</text>
+<line x1="190" y1="356.2" x2="1450" y2="356.2" stroke="#dedede" stroke-width="1"/>
+<text x="172" y="363.24999999999994" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="19" font-weight="400" text-anchor="end" fill="#666666">0.40</text>
+<line x1="190" y1="245.0" x2="1450" y2="245.0" stroke="#dedede" stroke-width="1"/>
+<text x="172" y="252.0" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="19" font-weight="400" text-anchor="end" fill="#666666">0.45</text>
+<line x1="1252.4" y1="415.6" x2="792.4" y2="489.7" stroke="#555555" stroke-width="4"/>
+<circle cx="1252.4" cy="415.6" r="16" fill="#aaaaaa" stroke="#111111" stroke-width="2"/>
+<rect x="777.4" y="474.7" width="30" height="30" fill="#222222"/>
+<text x="1274.3789473684212" y="398.64414999999997" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="21" font-weight="500" text-anchor="start" fill="#111111">Python · AGENTS.md</text>
+<text x="814.3529473684212" y="525.6899249999999" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="21" font-weight="500" text-anchor="start" fill="#111111">Python · hook</text>
+<line x1="973.7" y1="515.1" x2="321.6" y2="393.3" stroke="#555555" stroke-width="4"/>
+<circle cx="973.7" cy="515.1" r="16" fill="#aaaaaa" stroke="#111111" stroke-width="2"/>
+<rect x="306.6" y="378.3" width="30" height="30" fill="#222222"/>
+<text x="995.7199999999997" y="498.08607500000005" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="21" font-weight="500" text-anchor="start" fill="#111111">Rust · AGENTS.md</text>
+<text x="343.5837894736841" y="371.33852500000006" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="21" font-weight="500" text-anchor="start" fill="#111111">Rust · hook</text>
+<text x="1060" y="222" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="500" text-anchor="start" fill="#111111">● AGENTS.md    ■ hook</text>
+<line x1="90" y1="824" x2="1510" y2="824" stroke="#bbbbbb" stroke-width="1"/>
+<text x="90" y="861" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#666666">Source: v3 · 2026-09-04 · one quality-valid triple per stack</text>
+<text x="1510" y="861" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="500" text-anchor="end" fill="#111111">github.com/saitakarcesme/ram-aware-agents</text>
+</svg>

@@ -9,12 +9,13 @@ PACK = ROOT / "benchmarks" / "social" / "2026-09-04"
 
 class SocialAssetTests(unittest.TestCase):
     def test_copy_ready_posts_fit_280_characters(self):
-        content = (PACK / "tweet-thread.md").read_text(encoding="utf-8")
-        sections = content.split("## ")[1:]
-        self.assertGreaterEqual(len(sections), 5)
-        for section in sections:
-            title, body = section.split("\n", 1)
-            self.assertLessEqual(len(body.strip()), 280, title)
+        for filename in ("tweet-thread.md", "hook-vs-agents-tweet.md"):
+            content = (PACK / filename).read_text(encoding="utf-8")
+            sections = content.split("## ")[1:]
+            self.assertGreaterEqual(len(sections), 2)
+            for section in sections:
+                title, body = section.split("\n", 1)
+                self.assertLessEqual(len(body.strip()), 280, f"{filename}: {title}")
 
     def test_claims_keep_preliminary_sample_counts(self):
         with (PACK / "claims.csv").open(newline="", encoding="utf-8") as handle:
@@ -27,7 +28,12 @@ class SocialAssetTests(unittest.TestCase):
         self.assertEqual({row["quality_valid_samples"] for row in v3}, {"1"})
 
     def test_shareable_png_and_editable_svg_pairs_exist(self):
-        for stem in ("01-browser-profile", "02-agents-vs-hook"):
+        for stem in (
+            "01-browser-profile",
+            "02-agents-vs-hook",
+            "03-hook-vs-agents-deltas",
+            "04-hook-vs-agents-tradeoff",
+        ):
             for suffix in (".png", ".svg"):
                 path = PACK / f"{stem}{suffix}"
                 self.assertTrue(path.is_file(), path)

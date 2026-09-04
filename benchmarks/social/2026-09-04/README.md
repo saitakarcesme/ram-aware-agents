@@ -47,7 +47,10 @@ Only an 8 GB M1 MacBook has been physically measured. Higher-memory tiers are co
 
 - [`01-browser-profile.png`](01-browser-profile.png) — strongest quality-valid profile/control result
 - [`02-agents-vs-hook.png`](02-agents-vs-hook.png) — quality-valid v3 Rust and Python comparison
+- [`03-hook-vs-agents-deltas.png`](03-hook-vs-agents-deltas.png) — direct hook-relative-to-`AGENTS.md` changes
+- [`04-hook-vs-agents-tradeoff.png`](04-hook-vs-agents-tradeoff.png) — time-versus-peak-RSS movement by stack
 - [`tweet-thread.md`](tweet-thread.md) — copy-ready English X/Twitter thread
+- [`hook-vs-agents-tweet.md`](hook-vs-agents-tweet.md) — copy-ready response to “would this be better in hooks?”
 - [`claims.csv`](claims.csv) — compact source values used in the graphics
 
 The editable SVG versions are included beside the PNG files. Regenerate them with:

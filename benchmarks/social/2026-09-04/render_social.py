@@ -165,6 +165,111 @@ def render_hook() -> None:
     finish(parts, "02-agents-vs-hook", "Source: v3 · 2026-09-04 · quality-valid runs only")
 
 
+def render_direct_deltas() -> None:
+    parts = base(
+        "Hook vs AGENTS.md: faster, but not always lower-RAM",
+        "8 GB M1 MacBook · hook relative to AGENTS.md · one quality-valid triple per stack",
+        "01 / 02",
+    )
+    rows = [
+        ("COMPLETION TIME", "Python", -8.8),
+        ("", "Rust", -13.1),
+        ("PEAK PROCESS-TREE RSS", "Python", -8.9),
+        ("", "Rust", 16.7),
+        ("P95 PROCESS-TREE RSS", "Python", 1.1),
+        ("", "Rust", 2.9),
+    ]
+    zero_x = 850
+    scale = 18
+    parts.extend([
+        '<line x1="850" y1="235" x2="850" y2="740" stroke="#777777" stroke-width="2"/>',
+        text(850, 776, "0%", 20, anchor="middle", fill="#666666"),
+        text(560, 776, "hook lower / faster", 20, anchor="middle", fill="#666666"),
+        text(1120, 776, "hook higher / slower", 20, anchor="middle", fill="#666666"),
+    ])
+    for index, (group, label, delta) in enumerate(rows):
+        y = 280 + index * 78
+        if group:
+            parts.append(text(90, y - 31, group, 17, 500, fill="#666666"))
+        end_x = zero_x + delta * scale
+        x = min(zero_x, end_x)
+        width = abs(end_x - zero_x)
+        fill = "#222222" if delta < 0 else "#aaaaaa"
+        parts.extend([
+            text(90, y, label, 25, 400),
+            f'<rect x="{x:.1f}" y="{y - 30}" width="{width:.1f}" height="40" fill="{fill}"/>',
+        ])
+        if delta < 0:
+            parts.append(text(x - 15, y, f"{delta:+.1f}%", 24, 500, "end"))
+        else:
+            parts.append(text(end_x + 15, y, f"{delta:+.1f}%", 24, 500))
+    parts.extend([
+        '<line x1="1260" y1="250" x2="1260" y2="700" stroke="#d0d0d0" stroke-width="1"/>',
+        text(1300, 315, "What changed?", 22, 500),
+        text(1300, 365, "Hook won time", 30, 500),
+        text(1300, 402, "in both stacks.", 30, 500),
+        text(1300, 485, "Peak RAM split:", 22, fill="#666666"),
+        text(1300, 530, "Python → hook", 27, 500),
+        text(1300, 570, "Rust → AGENTS.md", 27, 500),
+        text(1300, 655, "No universal winner.", 24, 500),
+        text(1300, 690, "Preliminary: n=1 per stack", 18, fill="#666666"),
+    ])
+    finish(parts, "03-hook-vs-agents-deltas", "Source: v3 · 2026-09-04 · quality-valid runs only")
+
+
+def render_tradeoff() -> None:
+    parts = base(
+        "Hook vs AGENTS.md: the time–memory tradeoff",
+        "8 GB M1 MacBook · direct AGENTS.md → hook movement · lower-left is better",
+        "02 / 02",
+    )
+    left, right, top, bottom = 190, 1450, 245, 690
+    min_x, max_x = 630, 820
+    min_y, max_y = 0.25, 0.45
+
+    def sx(value: float) -> float:
+        return left + (value - min_x) / (max_x - min_x) * (right - left)
+
+    def sy(value: float) -> float:
+        return bottom - (value - min_y) / (max_y - min_y) * (bottom - top)
+
+    parts.extend([
+        f'<rect x="{left}" y="{top}" width="{right-left}" height="{bottom-top}" fill="none" stroke="#111111" stroke-width="2"/>',
+        text((left + right) / 2, 775, "Active completion time (seconds)", 24, 500, "middle"),
+        f'<text x="57" y="{(top + bottom) / 2}" transform="rotate(-90 57 {(top + bottom) / 2})" font-family="{FONT}" font-size="24" font-weight="500" text-anchor="middle" fill="#111111">Peak process-tree RSS (GiB)</text>',
+    ])
+    for tick in (640, 680, 720, 760, 800):
+        x = sx(tick)
+        parts.extend([
+            f'<line x1="{x:.1f}" y1="{top}" x2="{x:.1f}" y2="{bottom}" stroke="#dedede" stroke-width="1"/>',
+            text(x, 728, tick, 19, anchor="middle", fill="#666666"),
+        ])
+    for tick in (0.25, 0.30, 0.35, 0.40, 0.45):
+        y = sy(tick)
+        parts.extend([
+            f'<line x1="{left}" y1="{y:.1f}" x2="{right}" y2="{y:.1f}" stroke="#dedede" stroke-width="1"/>',
+            text(left - 18, y + 7, f"{tick:.2f}", 19, anchor="end", fill="#666666"),
+        ])
+    observations = {
+        "Python": ((790.2, .373306), (720.831, .340027)),
+        "Rust": ((748.18, .328613), (649.842, .383331)),
+    }
+    for workload, (agents, hook) in observations.items():
+        ax, ay = sx(agents[0]), sy(agents[1])
+        hx, hy = sx(hook[0]), sy(hook[1])
+        parts.extend([
+            f'<line x1="{ax:.1f}" y1="{ay:.1f}" x2="{hx:.1f}" y2="{hy:.1f}" stroke="#555555" stroke-width="4"/>',
+            f'<circle cx="{ax:.1f}" cy="{ay:.1f}" r="16" fill="#aaaaaa" stroke="#111111" stroke-width="2"/>',
+            f'<rect x="{hx-15:.1f}" y="{hy-15:.1f}" width="30" height="30" fill="#222222"/>',
+            text(ax + 22, ay - 17, f"{workload} · AGENTS.md", 21, 500),
+            text(hx + 22, hy + (36 if workload == "Python" else -22), f"{workload} · hook", 21, 500),
+        ])
+    parts.append(text(1060, 222, "● AGENTS.md    ■ hook", 20, 500))
+    finish(parts, "04-hook-vs-agents-tradeoff", "Source: v3 · 2026-09-04 · one quality-valid triple per stack")
+
+
 if __name__ == "__main__":
     render_browser()
     render_hook()
+    render_direct_deltas()
+    render_tradeoff()
