@@ -1,0 +1,24 @@
+stage,workload,condition,metric,value,unit,quality_valid_samples,note
+v1,pilot,AGENTS.md vs control,average RSS change,-30.7,percent,1,historical single-run pilot
+v1,pilot,AGENTS.md vs control,P95 RSS change,-18.0,percent,1,historical single-run pilot
+v1,pilot,AGENTS.md vs control,peak RSS change,3.2,percent,1,historical single-run pilot
+v1,pilot,AGENTS.md vs control,active time change,13.3,percent,1,historical single-run pilot
+v2,browser-e2e,AGENTS.md vs control,average RSS change,-40.6,percent,2,median of quality-valid pairs
+v2,browser-e2e,AGENTS.md vs control,P95 RSS change,-57.0,percent,2,median of quality-valid pairs
+v2,browser-e2e,AGENTS.md vs control,peak RSS change,-58.9,percent,2,median of quality-valid pairs
+v2,browser-e2e,AGENTS.md vs control,responsiveness P95 change,-61.5,percent,2,median of quality-valid pairs
+v2,browser-e2e,AGENTS.md vs control,active time change,5.0,percent,2,median of quality-valid pairs
+v2,browser-e2e,AGENTS.md,browser process peak,7,processes,2,range was 7 to 7
+v2,browser-e2e,control,browser process peak,23,processes,2,range was 22 to 24
+v3,python-data,control,peak RSS,0.387558,GiB,1,quality-valid triple
+v3,python-data,AGENTS.md,peak RSS,0.373306,GiB,1,quality-valid triple
+v3,python-data,hook,peak RSS,0.340027,GiB,1,quality-valid triple
+v3,python-data,control,active time,752.223,seconds,1,quality-valid triple
+v3,python-data,AGENTS.md,active time,790.2,seconds,1,quality-valid triple
+v3,python-data,hook,active time,720.831,seconds,1,quality-valid triple
+v3,rust-workspace,control,peak RSS,1.606537,GiB,1,quality-valid triple
+v3,rust-workspace,AGENTS.md,peak RSS,0.328613,GiB,1,quality-valid triple
+v3,rust-workspace,hook,peak RSS,0.383331,GiB,1,quality-valid triple
+v3,rust-workspace,control,active time,644.19,seconds,1,quality-valid triple
+v3,rust-workspace,AGENTS.md,active time,748.18,seconds,1,quality-valid triple
+v3,rust-workspace,hook,active time,649.842,seconds,1,quality-valid triple

@@ -97,6 +97,8 @@ The earlier four-prompt pilot remains under [`benchmarks/codex-8gb-2026-09-01/`]
 
 The [`benchmarks/v3/`](benchmarks/v3/README.md) protocol, analyzer, evidence publisher, and minimal black-and-white SVG chart are reproducible. Local raw results stay ignored because they contain full generated source and agent event logs.
 
+A consolidated analysis and copy-ready English social post pack are available under [`benchmarks/social/2026-09-04/`](benchmarks/social/2026-09-04/README.md). Its graphics use only quality-valid runs for headline comparisons and keep the pilot, excluded browser triples, sample-size limits, and unremeasured hook revision explicit.
+
 ## Sources
 
 - [OpenAI: custom instructions with AGENTS.md](https://developers.openai.com/codex/guides/agents-md)

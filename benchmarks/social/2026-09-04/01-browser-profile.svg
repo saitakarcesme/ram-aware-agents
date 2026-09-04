@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+<rect width="1600" height="900" fill="#ffffff"/>
+<text x="90" y="90" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="47" font-weight="500" text-anchor="start" fill="#111111">RAM-aware AGENTS.md cut browser-workload memory</text>
+<text x="90" y="137" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="25" font-weight="400" text-anchor="start" fill="#555555">8 GB M1 MacBook · React + Playwright · median of 2 quality-valid fresh-project pairs</text>
+<text x="1510" y="88" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="26" font-weight="500" text-anchor="end" fill="#111111">01 / 02</text>
+<line x1="90" y1="170" x2="1510" y2="170" stroke="#111111" stroke-width="2"/>
+<text x="90" y="225" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="25" font-weight="500" text-anchor="start" fill="#111111">Median change vs control</text>
+<line x1="860" y1="255" x2="860" y2="695" stroke="#777777" stroke-width="2"/>
+<text x="860" y="730" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="400" text-anchor="middle" fill="#666666">0%</text>
+<text x="465" y="770" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="400" text-anchor="middle" fill="#666666">less memory / faster</text>
+<text x="1060" y="770" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="400" text-anchor="middle" fill="#666666">more memory / slower</text>
+<text x="90" y="285" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="400" text-anchor="start" fill="#111111">Responsiveness P95</text>
+<rect x="411.1" y="254" width="448.9" height="42" fill="#222222"/>
+<text x="842" y="285" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="25" font-weight="500" text-anchor="end" fill="#ffffff">-61.5%</text>
+<text x="90" y="373" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="400" text-anchor="start" fill="#111111">Peak process-tree RSS</text>
+<rect x="430.0" y="342" width="430.0" height="42" fill="#222222"/>
+<text x="842" y="373" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="25" font-weight="500" text-anchor="end" fill="#ffffff">-58.9%</text>
+<text x="90" y="461" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="400" text-anchor="start" fill="#111111">P95 process-tree RSS</text>
+<rect x="443.9" y="430" width="416.1" height="42" fill="#222222"/>
+<text x="842" y="461" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="25" font-weight="500" text-anchor="end" fill="#ffffff">-57.0%</text>
+<text x="90" y="549" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="400" text-anchor="start" fill="#111111">Average process-tree RSS</text>
+<rect x="563.6" y="518" width="296.4" height="42" fill="#222222"/>
+<text x="842" y="549" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="25" font-weight="500" text-anchor="end" fill="#ffffff">-40.6%</text>
+<text x="90" y="637" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="400" text-anchor="start" fill="#111111">Active time</text>
+<rect x="860.0" y="606" width="36.5" height="42" fill="#a8a8a8"/>
+<text x="914.5" y="637" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="25" font-weight="500" text-anchor="start" fill="#111111">+5.0%</text>
+<line x1="1240" y1="245" x2="1240" y2="700" stroke="#d0d0d0" stroke-width="1"/>
+<text x="1285" y="295" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#666666">Browser processes</text>
+<text x="1285" y="347" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="39" font-weight="500" text-anchor="start" fill="#111111">22–24 → 7</text>
+<text x="1285" y="420" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#666666">Minimum free memory</text>
+<text x="1285" y="472" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="32" font-weight="500" text-anchor="start" fill="#111111">32–49% → 55–60%</text>
+<text x="1285" y="558" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#666666">Correctness gate</text>
+<text x="1285" y="610" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="30" font-weight="500" text-anchor="start" fill="#111111">2 / 2 pairs passed</text>
+<text x="1285" y="660" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="19" font-weight="400" text-anchor="start" fill="#666666">Preliminary: protocol minimum is 3</text>
+<line x1="90" y1="824" x2="1510" y2="824" stroke="#bbbbbb" stroke-width="1"/>
+<text x="90" y="861" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#666666">Source: v2 evidence snapshot · 2026-09-02</text>
+<text x="1510" y="861" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="500" text-anchor="end" fill="#111111">github.com/saitakarcesme/ram-aware-agents</text>
+</svg>
